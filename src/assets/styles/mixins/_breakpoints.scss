@@ -1,0 +1,29 @@
+@mixin extraLarge {
+  @media (min-width: rem(2048)) {
+    @content;
+  }
+}
+
+@mixin laptop {
+  @media (max-width: rem(1439.98)) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (max-width: rem(1023.98)) {
+    @content;
+  }
+}
+
+@mixin small-tablet {
+  @media (max-width: rem(767.98)) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (max-width: rem(575.98)) {
+    @content;
+  }
+}
