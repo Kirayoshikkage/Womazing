@@ -1,4 +1,4 @@
-# assembly
+# Womazing
 
 ## Project setup
 ```
