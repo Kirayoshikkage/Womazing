@@ -11,5 +11,9 @@
   font-size: rem(25);
   line-height: lh(35, 25);
   letter-spacing: 0.02em;
+
+  @include x-small {
+    font-size: rem(18);
+  }
 }
 </style>

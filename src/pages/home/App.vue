@@ -41,17 +41,23 @@ export default {
 @import '../../assets/styles/common/common';
 
 #app {
-  position: relative;
+  .home-hero {
+    position: relative;
 
-  &::before {
-    content: '';
-    position: absolute;
-    right: 0;
-    top: 0;
-    z-index: -1;
-    width: 44.06%;
-    height: rem(785);
-    background-color: var(--color-ecru);
+    &::before {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: rem(-108);
+      z-index: -1;
+      width: 46%;
+      height: calc(100% + rem(167));
+      background-color: var(--color-ecru);
+
+      @include medium {
+        display: none;
+      }
+    }
   }
 }
 </style>

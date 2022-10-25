@@ -6,67 +6,111 @@
           :modules="modules"
           :slides-per-view="1"
           :pagination="{ clickable: true }"
+          :a11y="{
+            firstSlideMessage: 'Это первый слайд',
+            lastSlideMessage: 'Это последний слайд',
+            paginationBulletMessage: 'Перейти к слайду {{index}}',
+          }"
         >
-          <swiper-slide v-slot="{ isActive }">
-            <LeadTitle>
-              Новые поступления
-              в этом сезоне
-            </LeadTitle>
-            <div class="home-hero__limiter">
-              <p class="home-hero__desc">
-                Утонченные сочетания и бархатные оттенки - вот то, что вы искали в этом сезоне. Время исследовать.
-              </p>
-              <BaseLink
-                class="link_filled"
-                :tabindex="isActive ? 0 : -1"
-              >
-                Открыть магазин
-              </BaseLink>
+          <swiper-slide
+            v-slot="{ isActive }"
+          >
+            <div
+              class="home-hero__content"
+              :aria-hidden="!isActive"
+            >
+              <LeadTitle>
+                Новые поступления
+                в этом сезоне
+              </LeadTitle>
+              <div class="home-hero__limiter">
+                <p class="home-hero__desc">
+                  Утонченные сочетания и бархатные оттенки - вот то, что вы искали в этом сезоне. Время исследовать.
+                </p>
+                <BaseLink
+                  class="link_filled"
+                  href="#"
+                  :tabindex="isActive ? 0 : -1"
+                >
+                  Открыть магазин
+                </BaseLink>
+              </div>
             </div>
           </swiper-slide>
-          <swiper-slide v-slot="{ isActive }">
-            <LeadTitle>
-              Что-то новенькое. Мы заждались тебя.
-            </LeadTitle>
-            <div class="home-hero__limiter">
-              <p class="home-hero__desc">
-                Надоело искать себя в сером городе? Настало время новых идей, свежих красок и вдохновения с Womazing!
-              </p>
-              <BaseLink
-                class="link_filled"
-                :tabindex="isActive ? 0 : -1"
-              >
-                Открыть магазин
-              </BaseLink>
+          <swiper-slide
+            v-slot="{ isActive }"
+          >
+            <div
+              class="home-hero__content"
+              :aria-hidden="!isActive"
+            >
+              <LeadTitle>
+                Что-то новенькое. Мы заждались тебя.
+              </LeadTitle>
+              <div class="home-hero__limiter">
+                <p class="home-hero__desc">
+                  Надоело искать себя в сером городе? Настало время новых идей, свежих красок и вдохновения с Womazing!
+                </p>
+                <BaseLink
+                  class="link_filled"
+                  href="#"
+                  :tabindex="isActive ? 0 : -1"
+                >
+                  Открыть магазин
+                </BaseLink>
+              </div>
             </div>
           </swiper-slide>
-          <swiper-slide v-slot="{ isActive }">
-            <LeadTitle>
-              Включай новый сезон с WOMAZING
-            </LeadTitle>
-            <div class="home-hero__limiter">
-              <p class="home-hero__desc">
-                Мы обновили ассортимент - легендарные коллекции и новинки от отечественных дизайнеров
-              </p>
-              <BaseLink
-                class="link_filled"
-                :tabindex="isActive ? 0 : -1"
-              >
-                Открыть магазин
-              </BaseLink>
+          <swiper-slide
+            v-slot="{ isActive }"
+          >
+            <div
+              class="home-hero__content"
+              :aria-hidden="!isActive"
+            >
+              <LeadTitle>
+                Включай новый сезон с WOMAZING
+              </LeadTitle>
+              <div class="home-hero__limiter">
+                <p class="home-hero__desc">
+                  Мы обновили ассортимент - легендарные коллекции и новинки от отечественных дизайнеров
+                </p>
+                <BaseLink
+                  class="link_filled"
+                  href="#"
+                  :tabindex="isActive ? 0 : -1"
+                >
+                  Открыть магазин
+                </BaseLink>
+              </div>
             </div>
           </swiper-slide>
         </swiper>
       </div>
-      <div class="home-hero__item">
+      <div class="home-hero__item home-hero__item_img">
         <picture>
           <source
+            media="(min-width: 128rem)"
             type="image/webp"
             srcset="
-            ../assets/img/home-hero-img@1x.webp 1x,
+            ../assets/img/home-hero-img@2x.webp,
+            ../assets/img/home-hero-img@3x.webp 2x,
+            ../assets/img/home-hero-img@4x.webp 3x
+            "
+          >
+          <source
+            media="(max-width: 127.98rem) and (min-width: 62rem)"
+            type="image/webp"
+            srcset="
+            ../assets/img/home-hero-img@1x.webp,
             ../assets/img/home-hero-img@2x.webp 2x,
             ../assets/img/home-hero-img@3x.webp 3x
             "
+          >
+          <source
+            media="(max-width: 61.98rem)"
+            type="image/webp"
+            srcset="../assets/img/stub.webp"
           >
           <img
             class="home-hero__img"
@@ -117,26 +161,52 @@ export default {
     justify-content: space-between;
     grid-template-columns: 50.72% 36.94%;
     gap: rem(24);
+
+    @include medium {
+      grid-template-columns: 100%;
+    }
+  }
+
+  &__item_img {
+    @include medium {
+      display: none;
+    }
   }
 
   .swiper {
+    padding-bottom: 3rem;
     height: 100%;
   }
 
-  .swiper-slide {
+  &__content {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    height: 100%;
   }
 
   .lead {
     margin: 0 0 rem(45);
     max-width: rem(548);
+
+    @include medium {
+      max-width: 100%;
+      text-align: center;
+    }
+
+    @include x-small {
+      margin: 0 0 1rem;
+    }
   }
 
   &__limiter {
     max-width: rem(385);
     text-align: right;
+
+    @include medium {
+      max-width: 100%;
+      text-align: center;
+    }
   }
 
   &__desc {
@@ -145,12 +215,22 @@ export default {
     line-height: lh(28, 20);
     letter-spacing: 0.02em;
     color: var(--color-black);
+
+    @include x-small {
+      margin: 0 0 2rem;
+      font-size: 1rem;
+    }
   }
 
   .swiper-pagination {
     bottom: 0;
     max-width: rem(385);
     text-align: right;
+
+    @include medium {
+      max-width: 100%;
+      text-align: center;
+    }
   }
 
   .swiper-pagination-bullet {
@@ -174,6 +254,21 @@ export default {
 
   .swiper-pagination-bullet-active {
     background-color: var(--color-gothic);
+  }
+
+  &__img {
+    width: 100%;
+    height: 100%;
+    min-height: rem(646);
+  }
+
+  @include medium {
+    margin: 0;
+    padding: rem(65) 0;
+  }
+
+  @include small {
+    padding: rem(32) 0;
   }
 }
 </style>

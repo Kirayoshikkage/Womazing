@@ -75,3 +75,33 @@ ul {
 body {
   background-color: var(--color-white);
 }
+
+@media (min-width: rem(2048)) {
+  :root {
+    font-size: 1.5rem;
+  }
+}
+
+@include large {
+  .container {
+    max-width: rem(960);
+  }
+}
+
+@include medium {
+  .container {
+    max-width: rem(736);
+  }
+}
+
+@include small {
+  .container {
+    max-width: rem(544);
+  }
+}
+
+@include x-small {
+  .container {
+    max-width: 100%;
+  }
+}

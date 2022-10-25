@@ -9,5 +9,13 @@
 
 .button {
   @include button-styles;
+
+  &_filled {
+    @include touch-device {
+      &:active {
+        background-color: var(--color-black);
+      }
+    }
+  }
 }
 </style>

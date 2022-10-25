@@ -1,0 +1,17 @@
+@mixin text-animation {
+  @include mouse-device {
+    border-bottom: rem(1) solid transparent;
+    padding-bottom: rem(5);
+    transition-property: color, border-color;
+    transition-duration: var(--transition-duration);
+
+    &:focus {
+      border-bottom-color: var(--color-gothic);
+      color: var(--color-gothic);
+    }
+
+    &:hover {
+      color: var(--color-gothic);
+    }
+  }
+}

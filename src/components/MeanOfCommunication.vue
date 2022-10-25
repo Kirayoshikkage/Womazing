@@ -21,48 +21,43 @@ export default {
 <style lang="scss">
 .mean-of-communication {
   outline: none;
-  border-bottom: rem(1) solid transparent;
-  padding-bottom: rem(5);
   font-size: rem(15);
   line-height: lh(21, 15);
   letter-spacing: 0.02em;
   color: var(--color-black);
-  transition-property: color, border-color;
-  transition-duration: var(--transition-duration);
-
-  * {
-    transition: color var(--transition-duration);
-  }
-
-  svg {
-    transition: fill var(--transition-duration);
-  }
 
   @include mouse-device {
+    border-bottom: rem(1) solid transparent;
+    padding-bottom: rem(5);
+    transition: border-color var(--transition-duration);
+
+    &__icon {
+      transition: fill var(--transition-duration);
+    }
+
+    &__communication {
+      transition: color var(--transition-duration);
+    }
+
     &:focus {
       border-bottom-color: var(--color-gothic);
-      color: var(--color-gothic);
 
-      svg {
+      .mean-of-communication__icon {
         fill: var(--color-gothic);
+      }
+
+      .mean-of-communication__communication {
+        color: var(--color-gothic);
       }
     }
 
     &:hover {
-      color: var(--color-gothic);
-
-      svg {
+      .mean-of-communication__icon {
         fill: var(--color-gothic);
       }
-    }
-  }
 
-  @include touch-device {
-    &:active {
-      color: var(--color-gothic);
-
-      svg {
-        fill: var(--color-gothic);
+      .mean-of-communication__communication {
+        color: var(--color-gothic);
       }
     }
   }

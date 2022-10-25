@@ -3,7 +3,10 @@
     href="#"
     class="shopping-basket"
   >
-    <BasketIcon aria-label="Корзина товаров" />
+    <BasketIcon
+      class="shopping-basket__icon"
+      aria-label="Корзина товаров"
+    />
     <span class="shopping-basket__amount">
       <span class="visually-hidden">Товаров в корзине:</span>
       5
@@ -26,20 +29,16 @@ export default {
   position: relative;
   display: inline-block;
   outline: none;
-  padding: 0.5rem;
-  transition: background var(--transition-duration);
-
-  svg {
-    transition: fill var(--transition-duration);
-  }
 
   &__amount {
     position: absolute;
-    right: rem(-4);
-    top: rem(-4);
+    left: rem(-11);
+    top: rem(-11);
     display: block;
+    overflow: auto;
     border-radius: 10%;
     padding: rem(2.5) rem(5);
+    max-width: 100%;
     font-family: 'Arial', 'Helvetica', sans-serif;
     font-size: rem(9);
     color: var(--color-white);
@@ -47,22 +46,23 @@ export default {
   }
 
   @include mouse-device {
+    padding: 0.5rem;
+    transition: background var(--transition-duration);
+
+    &__icon {
+      transition: fill var(--transition-duration);
+    }
+
+    &__amount {
+      left: rem(-3);
+      top: rem(-3);
+    }
 
     &:hover,
     &:focus {
       background-color: var(--color-gothic);
 
-      svg {
-        fill: var(--color-white);
-      }
-    }
-  }
-
-  @include touch-device {
-    &:active {
-      background-color: var(--color-gothic);
-
-      svg {
+      .shopping-basket__icon {
         fill: var(--color-white);
       }
     }

@@ -58,7 +58,7 @@ export default {
 
   &__list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(rem(350), 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(rem(250), 1fr));
     gap: rem(60) rem(30);
   }
 
@@ -87,6 +87,49 @@ export default {
       font-size: rem(17);
       line-height: lh(24, 17);
       letter-spacing: 0.02em;
+    }
+
+    @include small {
+      text-align: center;
+
+      &::before {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+
+    @include x-small {
+      position: relative;
+      padding-top: rem(58);
+
+      &::before {
+        width: rem(41);
+        height: rem(41);
+      }
+
+      .subtitle {
+        margin: 0 0 1rem;
+      }
+
+      &__desc {
+        font-weight: 400;
+        font-size: rem(14);
+      }
+    }
+  }
+
+  @include small {
+    padding: rem(32) 0;
+
+    &__list {
+      grid-template-columns: 1fr;
+      gap: rem(30);
+    }
+  }
+
+  @media (orientation: landscape) and (max-width: rem(575.98)) {
+    &__list {
+      grid-template-columns: repeat(auto-fit, minmax(rem(250), 1fr));
     }
   }
 

@@ -24,11 +24,10 @@
         background-color: var(--color-black);
       }
     }
+  }
 
-    @include touch-device {
-      &:active {
-        background-color: var(--color-black);
-      }
-    }
+  @include x-small {
+    padding: rem(18) rem(42);
+    font-size: rem(14);
   }
 }

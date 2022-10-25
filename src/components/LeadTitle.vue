@@ -13,5 +13,13 @@
   letter-spacing: 0.02em;
   text-align: left;
   color: var(--color-black);
+
+  @include x-small {
+    font-size: rem(32);
+  }
+
+  @media (orientation: landscape) and (max-width: rem(767.98)) {
+    font-size: rem(32);
+  }
 }
 </style>

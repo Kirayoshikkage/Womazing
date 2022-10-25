@@ -8,13 +8,31 @@
 .social-network {
   a {
     display: block;
-    width: rem(23);
-    height: rem(23);
+    outline: none;
+
+    @include mouse-device {
+      padding: 0.5rem;
+      transition: background var(--transition-duration);
+
+      path {
+        transition: fill var(--transition-duration);
+      }
+
+      &:hover,
+      &:focus {
+        background-color: var(--color-gothic);
+
+        path {
+          fill: var(--color-white);
+        }
+      }
+    }
   }
 
   svg {
-    width: 100%;
-    height: 100%;
+    display: block;
+    width: rem(23);
+    height: rem(23);
   }
 }
 </style>

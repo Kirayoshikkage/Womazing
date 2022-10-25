@@ -1,26 +1,24 @@
 <template>
-  <nav class="navigation-menu">
-    <ul class="navigation-menu__list">
-      <li
-        v-for="[pageName, href] of listItems"
-        :key="pageName"
-        class="navigation-menu__item"
+  <ul class="category-list">
+    <li
+      v-for="[category, href] of categoryList"
+      :key="category"
+      class="category-list__item"
+    >
+      <a
+        class="category-list__link"
+        :href="href"
       >
-        <a
-          :href="href"
-          class="navigation-menu__link"
-        >
-          {{ pageName }}
-        </a>
-      </li>
-    </ul>
-  </nav>
+        {{ category }}
+      </a>
+    </li>
+  </ul>
 </template>
 
 <script>
 export default {
   props: {
-    listItems: {
+    categoryList: {
       type: Array,
       default() {
         return [];
@@ -33,7 +31,7 @@ export default {
 <style lang="scss">
 @import '../assets/styles/mixins/text-animation';
 
-.navigation-menu {
+.category-list {
   &__link {
     @include text-animation;
 
