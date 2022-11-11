@@ -1,13 +1,39 @@
 <template>
-  <header class="header">
-    <div class="container">
-      <BurgerTrigger id="header-burger-trigger" />
-      <BaseLogo />
-      <NavigationMenu
-        :list-items="listNavigation"
-      />
-      <div class="header__group">
-        <MeanOfCommunication href="tel:+74958235412">
+  <focus-trap
+    ref="focusTrap"
+    :active="false"
+  >
+    <header class="header">
+      <div class="container">
+        <BurgerTrigger id="header-burger-trigger" />
+        <BaseLogo />
+        <NavigationMenu :list-items="listNavigation" />
+        <div class="header__group">
+          <MeanOfCommunication href="tel:+74958235412">
+            <PhoneIcon
+              class="mean-of-communication__icon"
+              aria-hidden="true"
+            />
+            <p class="visually-hidden">
+              Номер телефона:
+            </p>
+            <span class="mean-of-communication__communication">+7 (495) 823-54-12 </span>
+          </MeanOfCommunication>
+          <ShoppingBasket />
+        </div>
+      </div>
+      <TheBurgerMenu
+        v-bind="configuresBurgerMenu()"
+        ref="burgerMenu"
+        @open="handleOpenBurgerMenu"
+        @close="handleCloseBurgerMenu"
+      >
+        <NavigationMenu
+          :list-items="listNavigation"
+        />
+        <MeanOfCommunication
+          href="tel:+74958235412"
+        >
           <PhoneIcon
             class="mean-of-communication__icon"
             aria-hidden="true"
@@ -16,32 +42,15 @@
             Номер телефона:
           </p>
           <span class="mean-of-communication__communication">+7 (495) 823-54-12 </span>
-        </MeanOfCommunication>
-        <ShoppingBasket />
-      </div>
-    </div>
-  </header>
-  <TheBurgerMenu
-    v-bind="configuresBurgerMenu()"
-    ref="burgerMenu"
-  >
-    <NavigationMenu
-      :list-items="listNavigation"
-    />
-    <MeanOfCommunication href="tel:+74958235412">
-      <PhoneIcon
-        class="mean-of-communication__icon"
-        aria-hidden="true"
-      />
-      <p class="visually-hidden">
-        Номер телефона:
-      </p>
-      <span class="mean-of-communication__communication">+7 (495) 823-54-12 </span>
-    </MeanOfCommunication> 
-  </TheBurgerMenu>
+        </MeanOfCommunication> 
+      </TheBurgerMenu>
+    </header>
+  </focus-trap>
 </template>
 
 <script>
+ import { FocusTrap } from 'focus-trap-vue' 
+
 import BaseLogo from './BaseLogo.vue';
 import NavigationMenu from './NavigationMenu.vue';
 import MeanOfCommunication from './MeanOfCommunication.vue';
@@ -49,11 +58,11 @@ import PhoneIcon from './icons/PhoneIcon.vue';
 import ShoppingBasket from './ShoppingBasket.vue';
 import BurgerTrigger from './BurgerTrigger.vue'
 import TheBurgerMenu from './TheBurgerMenu.vue';
-import FocusLock from '../assets/scripts/components/FocusLock';
 import getFontSizeBody from '../assets/scripts/helpers/getFontSizeBody';
 
 export default {
   components: {
+    FocusTrap,
     BaseLogo,
     NavigationMenu,
     MeanOfCommunication,
@@ -74,14 +83,6 @@ export default {
   },
   methods: {
     configuresBurgerMenu() {
-      const focusLock = new FocusLock({
-        exception: ['.header .burger-trigger', '.burger-menu'],
-        mutationObserver: true,
-        disableOnMobileDevice: true
-      });
-
-      focusLock.init();
-
       return {
         triggerSelector: '#header-burger-trigger',
         breakpoints: {
@@ -91,27 +92,30 @@ export default {
               this.$refs.burgerMenu.close();
             }
           },
-        },
-        focusLock
+        }
       }
+    },
+    handleOpenBurgerMenu() {
+      this.$refs.focusTrap.activate();
+    },
+    handleCloseBurgerMenu() {
+      this.$refs.focusTrap.deactivate();
     }
   }
 }
 </script>
 
 <style lang="scss">
-.header {
+.header > .container {
   position: relative;
   z-index: 101;
-  padding: 1.5rem 0;
-
-  .container {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-  }
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  gap: 1rem;
 
   .burger-trigger {
     display: none;
@@ -147,7 +151,7 @@ export default {
     }
   }
 
-  &__group {
+  .header__group {
     display: flex;
     align-items: center;
     gap: rem(32);

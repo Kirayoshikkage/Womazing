@@ -1,0 +1,62 @@
+[
+  {
+    "id": "fb62624c-ce10-44c9-9ce5-7d259b20741c",
+    "title": "Футболка USA",
+    "type": "tshirt",
+    "price": 90,
+    "discount": 25,
+    "gallery": {
+      "path": {
+        "1x": "productImgs/fb62624c-ce10-44c9-9ce5-7d259b20741c@1x.webp",
+        "2x": "productImgs/fb62624c-ce10-44c9-9ce5-7d259b20741c@2x.webp",
+        "3x": "productImgs/fb62624c-ce10-44c9-9ce5-7d259b20741c@3x.webp"
+      },
+      "alt": "Серая облегающая футболка с чёрной надписью USA на груди"
+    }
+  },
+  {
+    "id": "07c41167-ac05-4850-8d8d-fcd2914dde15",
+    "title": "Купальник Glow",
+    "type": "swimsuit",
+    "price": 70,
+    "discount": 30,
+    "gallery": {
+      "path": {
+        "1x": "productImgs/07c41167-ac05-4850-8d8d-fcd2914dde15@1x.webp",
+        "2x": "productImgs/07c41167-ac05-4850-8d8d-fcd2914dde15@2x.webp",
+        "3x": "productImgs/07c41167-ac05-4850-8d8d-fcd2914dde15@3x.webp"
+      },
+      "alt": "Чёрный сплошной купальник с формованными чашками"
+    }
+  },
+  {
+    "id": "7150e4ba-2b80-4d02-a91c-3a098a67914e",
+    "title": "Свитшот Sweet Shot",
+    "type": "sweatshirt",
+    "price": 120,
+    "discount": 20,
+    "gallery": {
+      "path": {
+        "1x": "productImgs/7150e4ba-2b80-4d02-a91c-3a098a67914e@1x.webp",
+        "2x": "productImgs/7150e4ba-2b80-4d02-a91c-3a098a67914e@2x.webp",
+        "3x": "productImgs/7150e4ba-2b80-4d02-a91c-3a098a67914e@3x.webp"
+      },
+      "alt": "Укороченный оверсайз свитшот белого цвета с манжетами"
+    }
+  },
+  {
+    "id": "7150e4ba-2b80-4d02-a91c-3a098a67914e",
+    "title": "Свитшот Sweet Shot",
+    "type": "sweatshirt",
+    "price": 120,
+    "discount": 20,
+    "gallery": {
+      "path": {
+        "1x": "productImgs/7150e4ba-2b80-4d02-a91c-3a098a67914e@1x.webp",
+        "2x": "productImgs/7150e4ba-2b80-4d02-a91c-3a098a67914e@2x.webp",
+        "3x": "productImgs/7150e4ba-2b80-4d02-a91c-3a098a67914e@3x.webp"
+      },
+      "alt": "Укороченный оверсайз свитшот белого цвета с манжетами"
+    }
+  }
+]

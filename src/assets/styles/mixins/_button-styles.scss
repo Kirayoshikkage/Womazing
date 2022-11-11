@@ -6,9 +6,27 @@
   letter-spacing: 0.02em;
   text-align: center;
 
-  &_hollow {
+  &_hollow-gothic {
     outline: none;
     border: rem(1) solid var(--color-gothic);
+    color: var(--color-gothic);
+    background-color: transparent;
+    transition-property: background, color;
+    transition-duration: var(--transition-duration);
+
+    @include mouse-device {
+      &:hover,
+      &:focus {
+        color: var(--color-white);
+        background-color: var(--color-gothic);
+      }
+    }
+  }
+
+  &_hollow-white {
+    outline: none;
+    border: rem(1) solid var(--color-white);
+    color: var(--color-white);
     background-color: transparent;
   }
 

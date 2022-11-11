@@ -32,7 +32,7 @@
                   href="#"
                   :tabindex="isActive ? 0 : -1"
                 >
-                  Открыть магазин
+                  Каталог товаров
                 </BaseLink>
               </div>
             </div>
@@ -243,7 +243,6 @@ export default {
     transition-duration: var(--transition-duration);
 
     @include mouse-device {
-
       &:hover,
       &:focus {
         background-color: var(--color-black);

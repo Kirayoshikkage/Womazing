@@ -31,11 +31,11 @@ export default {
       default() {
         return {};
       },
-    },
-    focusLock: {
-      type: Object,
-      default: null,
     }
+  },
+  emits: {
+    open:null,
+    close: null,
   },
   data() {
     return {
@@ -69,9 +69,9 @@ export default {
 
       this.switchesClassActivityTrigger();
 
-      this.switchesFocusLock();
-
       this.changesTextForA11yAtTrigger();
+
+      this.switchesAriaExpandedAtTrigger();
     },
     currentBreakpoint() {
       this.callsFunctionsBreakpoint();
@@ -112,17 +112,6 @@ export default {
 
       this.trigger.classList.remove('active');
     },
-    switchesFocusLock() {
-      if (!this.focusLock) return;
-
-      if (this.isOpen) {
-        this.focusLock.blocksFocus();
-
-        return;
-      }
-
-      this.focusLock.unblocksFocus();
-    },
     changesTextForA11yAtTrigger() {
       if (this.isOpen) {
         this.trigger.setAttribute('aria-label', 'Закрыть бургер меню')
@@ -131,6 +120,15 @@ export default {
       }
 
       this.trigger.setAttribute('aria-label', 'Открыть бургер меню')
+    },
+    switchesAriaExpandedAtTrigger() {
+      if (this.isOpen) {
+        this.trigger.setAttribute('aria-expanded', true);
+
+        return;
+      }
+
+      this.trigger.setAttribute('aria-expanded', false);
     },
     callsFunctionsBreakpoint() {
       const functionsBreakpoint = this.breakpoints[this.currentBreakpoint];
@@ -165,6 +163,8 @@ export default {
       this.isOpen = true;
 
       this.addsPaddingInsteadOfScroll(document.body);
+
+      this.$emit('open');
     },
     addsPaddingInsteadOfScroll(element) {
       const padding = `${window.innerWidth - document.body.offsetWidth}px`;
@@ -175,6 +175,8 @@ export default {
       this.isOpen = false;
 
       this.removesScrollPadding(document.body);
+
+      this.$emit('close');
     },
     removesScrollPadding(element) {
       element.style.paddingRight = 0;

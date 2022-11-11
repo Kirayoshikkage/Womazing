@@ -184,6 +184,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../assets/styles/components/slider-btn';
+
 .dream-team {
   padding: rem(65) 0 rem(130);
 
@@ -259,32 +261,7 @@ export default {
 
   .swiper-button-prev,
   .swiper-button-next {
-    outline: none;
-    border-radius: 100%;
-    width: rem(50);
-    height: rem(50);
-    background-color: var(--color-gothic);
-    transition: background var(--transition-duration);
-
-    &::after {
-      font-weight: 700;
-      font-size: rem(22);
-      color: var(--color-white);
-    }
-
-    @include mouse-device {
-
-      &:hover,
-      &:focus {
-        background-color: var(--color-black);
-      }
-    }
-
-    @include touch-device {
-      &:active {
-        background-color: var(--color-black);
-      }
-    }
+    @extend .slider-btn;
   }
 
   @include small {

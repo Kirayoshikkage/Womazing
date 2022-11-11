@@ -2,6 +2,7 @@
   <TheHeader />
   <main>
     <TheHomeHero />
+    <TheNewCollection />
     <TheImportantToUs />
     <TheDreamTeam />
   </main>
@@ -11,6 +12,7 @@
 <script>
 import TheHeader from '../../components/TheHeader.vue';
 import TheHomeHero from '../../components/TheHomeHero.vue';
+import TheNewCollection from '../../components/TheNewCollection.vue';
 import TheImportantToUs from '../../components/TheImportantToUs.vue';
 import TheDreamTeam from '../../components/TheDreamTeam.vue';
 import TheFooter from '../../components/TheFooter.vue';
@@ -20,6 +22,7 @@ export default {
   components: {
     TheHeader,
     TheHomeHero,
+    TheNewCollection,
     TheImportantToUs,
     TheDreamTeam,
     TheFooter
