@@ -1,12 +1,6 @@
 <template>
-  <article
-    class="card-product"
-  >
-    <a
-      class="card-product__link"
-      href=""
-      :tabindex="tabIndex"
-    >
+  <article class="card-product">
+    <a class="card-product__link" href="" :tabindex="tabIndex">
       <img
         class="card-product__img"
         :src="srcImg"
@@ -14,81 +8,63 @@
         :alt="altImg"
         width="350"
         height="478"
-      >
+      />
     </a>
     <BaseSubtitle>
       {{ title }}
     </BaseSubtitle>
-    <p
-      v-if="discount"
-      class="card-product__price card-product__old-price"
-    >
+    <p v-if="discount" class="card-product__price card-product__old-price">
       <span class="visually-hidden">Старая цена</span>
       &#36;{{ oldPrice }}
     </p>
-    <p
-      class="card-product__price"
-    >
-      <span
-        v-if="discount"
-        class="visually-hidden"
-      >
-        Новая цена
-      </span>
-      <span
-        v-if="!discount"
-        class="visually-hidden"
-      >
-        Цена
-      </span>
+    <p class="card-product__price">
+      <span v-if="discount" class="visually-hidden"> Новая цена </span>
+      <span v-if="!discount" class="visually-hidden"> Цена </span>
       &#36;{{ price }}
     </p>
   </article>
 </template>
 
 <script>
-import BaseSubtitle from './BaseSubtitle.vue';
+import BaseSubtitle from "./BaseSubtitle.vue";
 
 export default {
   components: {
-    BaseSubtitle
+    BaseSubtitle,
   },
   props: {
     product: {
       type: Object,
       required: true,
       default() {
-        return {}
-      }
+        return {};
+      },
     },
     focusLock: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   computed: {
     title() {
-      const { title = 'Womazing' } = this.product;
+      const { title = "Womazing" } = this.product;
 
       return title;
     },
     price() {
       const { price = 80 } = this.product;
 
-      return price
+      return price;
     },
     discount() {
       return this.product.discount;
     },
     oldPrice() {
-      return Math.round(
-        (100 * this.price)
-        / (100 - this.discount)
-      )
+      return Math.round((100 * this.price) / (100 - this.discount));
     },
     srcImg() {
-      const img = this.product.gallery?.path['1x'];
-      const stub = require('@/assets/img/stubForProduct.svg');
+      const img = this.product.gallery?.path["1x"];
+      const stub = require("@/assets/img/stubForProduct.svg");
 
       return img || stub;
     },
@@ -96,23 +72,22 @@ export default {
       const imgs = this.product.gallery?.path || {};
 
       return Object.keys(imgs).reduce((acc, key) => {
-
         acc += `${imgs[key]} ${key},`;
 
         return acc;
-      }, '')
+      }, "");
     },
     altImg() {
       const alt = this.product.gallery?.alt;
-      const stubAlt = 'Womazing';
+      const stubAlt = "Womazing";
 
       return alt || stubAlt;
     },
     tabIndex() {
-      return this.focusLock ? -1 : 0
-    }
-  }
-}
+      return this.focusLock ? -1 : 0;
+    },
+  },
+};
 </script>
 
 <style lang="scss">
@@ -126,7 +101,7 @@ export default {
     outline: none;
 
     &::before {
-      content: '';
+      content: "";
       position: absolute;
       left: 0;
       right: 0;
@@ -137,14 +112,14 @@ export default {
     }
 
     &::after {
-      content: '';
+      content: "";
       position: absolute;
       left: 50%;
       top: 50%;
       z-index: 1;
       width: rem(31);
       height: rem(22);
-      background-image: url('@/assets/img/arrow.svg');
+      background-image: url("@/assets/img/arrow.svg");
       background-size: cover;
       background-repeat: no-repeat;
       opacity: 0;
@@ -153,7 +128,6 @@ export default {
     }
 
     @include mouse-device {
-
       &:hover,
       &:focus {
         &::before {

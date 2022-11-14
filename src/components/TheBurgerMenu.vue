@@ -5,10 +5,7 @@
     :class="activityClass"
     @pointerup="close"
   >
-    <div
-      class="burger-menu__body"
-      @pointerup.stop
-    >
+    <div class="burger-menu__body" @pointerup.stop>
       <div class="container burger-menu__content">
         <slot />
       </div>
@@ -17,7 +14,7 @@
 </template>
 
 <script>
-import debounce from '../assets/scripts/helpers/debounce';
+import debounce from "../assets/scripts/helpers/debounce";
 
 export default {
   props: {
@@ -31,37 +28,36 @@ export default {
       default() {
         return {};
       },
-    }
+    },
   },
   emits: {
-    open:null,
+    open: null,
     close: null,
   },
   data() {
     return {
       isOpen: null,
       currentBreakpoint: null,
-    }
+    };
   },
   computed: {
     visibilityStyles() {
-      return this.isOpen ?
-        {
-          visibility: 'visible',
-          opacity: 1,
-        }
-        :
-        {
-          visibility: 'hidden',
-          opacity: 0
-        }
+      return this.isOpen
+        ? {
+            visibility: "visible",
+            opacity: 1,
+          }
+        : {
+            visibility: "hidden",
+            opacity: 0,
+          };
     },
     activityClass() {
-      return this.isOpen ? 'active' : ''
+      return this.isOpen ? "active" : "";
     },
     trigger() {
       return document.querySelector(this.triggerSelector);
-    }
+    },
   },
   watch: {
     isOpen() {
@@ -75,7 +71,7 @@ export default {
     },
     currentBreakpoint() {
       this.callsFunctionsBreakpoint();
-    }
+    },
   },
   mounted() {
     this.addsEventListenersTrigger();
@@ -85,57 +81,60 @@ export default {
     this.isOpen = false;
   },
   beforeUnmount() {
-    this.trigger.removeEventListener('pointerup', this.toggle);
+    this.trigger.removeEventListener("pointerup", this.toggle);
 
-    this.trigger.removeEventListener('keydown', this.keydownEventHandlerOnTrigger);
+    this.trigger.removeEventListener(
+      "keydown",
+      this.keydownEventHandlerOnTrigger
+    );
 
-    window.removeEventListener('resize', this.wrapperForUpdatingBreakpoints);
+    window.removeEventListener("resize", this.wrapperForUpdatingBreakpoints);
   },
   methods: {
     switchesBlockScroll() {
       const { body } = document;
 
       if (this.isOpen) {
-        body.classList.add('overflow-hidden');
+        body.classList.add("overflow-hidden");
 
         return;
       }
 
-      body.classList.remove('overflow-hidden');
+      body.classList.remove("overflow-hidden");
     },
     switchesClassActivityTrigger() {
       if (this.isOpen) {
-        this.trigger.classList.add('active');
+        this.trigger.classList.add("active");
 
         return;
       }
 
-      this.trigger.classList.remove('active');
+      this.trigger.classList.remove("active");
     },
     changesTextForA11yAtTrigger() {
       if (this.isOpen) {
-        this.trigger.setAttribute('aria-label', 'Закрыть бургер меню')
+        this.trigger.setAttribute("aria-label", "Закрыть бургер меню");
 
         return;
       }
 
-      this.trigger.setAttribute('aria-label', 'Открыть бургер меню')
+      this.trigger.setAttribute("aria-label", "Открыть бургер меню");
     },
     switchesAriaExpandedAtTrigger() {
       if (this.isOpen) {
-        this.trigger.setAttribute('aria-expanded', true);
+        this.trigger.setAttribute("aria-expanded", true);
 
         return;
       }
 
-      this.trigger.setAttribute('aria-expanded', false);
+      this.trigger.setAttribute("aria-expanded", false);
     },
     callsFunctionsBreakpoint() {
       const functionsBreakpoint = this.breakpoints[this.currentBreakpoint];
 
       if (!functionsBreakpoint) return;
 
-      if (typeof functionsBreakpoint === 'function') {
+      if (typeof functionsBreakpoint === "function") {
         functionsBreakpoint();
 
         return;
@@ -146,9 +145,12 @@ export default {
       });
     },
     addsEventListenersTrigger() {
-      this.trigger.addEventListener('pointerup', this.toggle);
+      this.trigger.addEventListener("pointerup", this.toggle);
 
-      this.trigger.addEventListener('keydown', this.keydownEventHandlerOnTrigger);
+      this.trigger.addEventListener(
+        "keydown",
+        this.keydownEventHandlerOnTrigger
+      );
     },
     toggle() {
       if (!this.isOpen) {
@@ -164,7 +166,7 @@ export default {
 
       this.addsPaddingInsteadOfScroll(document.body);
 
-      this.$emit('open');
+      this.$emit("open");
     },
     addsPaddingInsteadOfScroll(element) {
       const padding = `${window.innerWidth - document.body.offsetWidth}px`;
@@ -176,13 +178,13 @@ export default {
 
       this.removesScrollPadding(document.body);
 
-      this.$emit('close');
+      this.$emit("close");
     },
     removesScrollPadding(element) {
       element.style.paddingRight = 0;
     },
     keydownEventHandlerOnTrigger(e) {
-      if (e.code !== 'Enter') return;
+      if (e.code !== "Enter") return;
 
       this.toggle();
     },
@@ -191,7 +193,7 @@ export default {
 
       this.updatesBreakpoint();
 
-      window.addEventListener('resize', this.wrapperForUpdatingBreakpoints);
+      window.addEventListener("resize", this.wrapperForUpdatingBreakpoints);
     },
     wrapperForUpdatingBreakpoints: debounce(function () {
       this.updatesBreakpoint();
@@ -217,9 +219,9 @@ export default {
     },
     burgerMenuIsOpen() {
       return this.isOpen;
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="scss">

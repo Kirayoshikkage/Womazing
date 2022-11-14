@@ -6,10 +6,7 @@
         :key="pageName"
         class="navigation-menu__item"
       >
-        <a
-          :href="href"
-          class="navigation-menu__link"
-        >
+        <a :href="href" class="navigation-menu__link">
           {{ pageName }}
         </a>
       </li>
@@ -24,14 +21,14 @@ export default {
       type: Array,
       default() {
         return [];
-      }
-    }
-  }
-}
+      },
+    },
+  },
+};
 </script>
 
 <style lang="scss">
-@import '../assets/styles/mixins/text-animation';
+@import "../assets/styles/mixins/text-animation";
 
 .navigation-menu {
   &__link {

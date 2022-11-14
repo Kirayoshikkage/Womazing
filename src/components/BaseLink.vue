@@ -1,8 +1,5 @@
 <template>
-  <a
-    class="link"
-    :href="href"
-  >
+  <a class="link" :href="href">
     <slot />
   </a>
 </template>
@@ -12,14 +9,14 @@ export default {
   props: {
     href: {
       type: String,
-      default: '#',
-    }
-  }
-}
+      default: "#",
+    },
+  },
+};
 </script>
 
 <style lang="scss">
-@import '../assets/styles/mixins/button-styles';
+@import "../assets/styles/mixins/button-styles";
 
 .link {
   @include button-styles;

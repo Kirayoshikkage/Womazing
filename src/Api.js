@@ -3,7 +3,7 @@ function getRandomArbitrary(min, max) {
 }
 
 async function getNewCollectionItems() {
-  const response = await fetch('newCollectionProducts.json');
+  const response = await fetch("newCollectionProducts.json");
   const request = await response.json();
 
   await new Promise((resolve) => {
@@ -11,7 +11,7 @@ async function getNewCollectionItems() {
   });
 
   if (getRandomArbitrary(1, 3) === 1) {
-    throw new Error('Network problems');
+    throw new Error("Network problems");
   }
 
   return request;

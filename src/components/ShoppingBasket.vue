@@ -1,12 +1,6 @@
 <template>
-  <a
-    href="#"
-    class="shopping-basket"
-  >
-    <BasketIcon
-      class="shopping-basket__icon"
-      aria-label="Корзина товаров"
-    />
+  <a href="#" class="shopping-basket">
+    <BasketIcon class="shopping-basket__icon" aria-label="Корзина товаров" />
     <span class="shopping-basket__amount">
       <span class="visually-hidden">Товаров в корзине:</span>
       5
@@ -15,13 +9,13 @@
 </template>
 
 <script>
-import BasketIcon from './icons/BasketIcon.vue';
+import BasketIcon from "./icons/BasketIcon.vue";
 
 export default {
   components: {
-    BasketIcon
-  }
-}
+    BasketIcon,
+  },
+};
 </script>
 
 <style lang="scss">
@@ -39,7 +33,7 @@ export default {
     border-radius: 10%;
     padding: rem(2.5) rem(5);
     max-width: 100%;
-    font-family: 'Arial', 'Helvetica', sans-serif;
+    font-family: "Arial", "Helvetica", sans-serif;
     font-size: rem(9);
     color: var(--color-white);
     background-color: var(--color-gothic);

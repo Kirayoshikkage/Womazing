@@ -1,9 +1,7 @@
 <template>
   <section class="dream-team">
     <div class="container">
-      <BaseTitle>
-        Команда мечты Womazing
-      </BaseTitle>
+      <BaseTitle> Команда мечты Womazing </BaseTitle>
       <div class="dream-team__content">
         <div class="dream-team__item">
           <swiper
@@ -14,7 +12,7 @@
               firstSlideMessage: 'Это первый слайд',
               lastSlideMessage: 'Это последний слайд',
               nextSlideMessage: 'Следующий слайд',
-              prevSlideMessage: 'Предыдущий слайд'
+              prevSlideMessage: 'Предыдущий слайд',
             }"
           >
             <swiper-slide v-slot="{ isActive }">
@@ -27,7 +25,7 @@
                     ../assets/img/dream-team-one-desctop@3x.webp 2x,
                     ../assets/img/dream-team-one-desctop@4x.webp 3x
                   "
-                >
+                />
                 <source
                   media="(max-width:2047.98px) and (min-width: 486px)"
                   type="image/webp"
@@ -36,7 +34,7 @@
                     ../assets/img/dream-team-one-desctop@2x.webp 2x,
                     ../assets/img/dream-team-one-desctop@3x.webp 3x
                   "
-                >
+                />
                 <source
                   media="(max-width: 485.98px)"
                   type="image/webp"
@@ -45,7 +43,7 @@
                     ../assets/img/dream-team-one-mobile@2x.webp 2x,
                     ../assets/img/dream-team-one-mobile@3x.webp 3x
                   "
-                >
+                />
                 <img
                   class="dream-team__img"
                   src="../assets/img/dream-team-one-desctop@1x.webp"
@@ -53,7 +51,7 @@
                   loading="lazy"
                   width="729"
                   height="487"
-                >
+                />
               </picture>
             </swiper-slide>
             <swiper-slide v-slot="{ isActive }">
@@ -66,7 +64,7 @@
                     ../assets/img/dream-team-two-desctop@3x.webp 2x,
                     ../assets/img/dream-team-two-desctop@4x.webp 3x
                   "
-                >
+                />
                 <source
                   media="(max-width:2047.98px) and (min-width: 486px)"
                   type="image/webp"
@@ -75,7 +73,7 @@
                     ../assets/img/dream-team-two-desctop@2x.webp 2x,
                     ../assets/img/dream-team-two-desctop@3x.webp 3x
                   "
-                >
+                />
                 <source
                   media="(max-width: 485.98px)"
                   type="image/webp"
@@ -84,7 +82,7 @@
                     ../assets/img/dream-team-two-mobile@2x.webp 2x,
                     ../assets/img/dream-team-two-mobile@3x.webp 3x
                   "
-                >
+                />
                 <img
                   class="dream-team__img"
                   src="../assets/img/dream-team-two-desctop@1x.webp"
@@ -92,7 +90,7 @@
                   loading="lazy"
                   width="729"
                   height="487"
-                >
+                />
               </picture>
             </swiper-slide>
             <swiper-slide v-slot="{ isActive }">
@@ -105,7 +103,7 @@
                     ../assets/img/dream-team-three-desctop@3x.webp 2x,
                     ../assets/img/dream-team-three-desctop@4x.webp 3x
                   "
-                >
+                />
                 <source
                   media="(max-width:2047.98px) and (min-width: 486px)"
                   type="image/webp"
@@ -114,7 +112,7 @@
                     ../assets/img/dream-team-three-desctop@2x.webp 2x,
                     ../assets/img/dream-team-three-desctop@3x.webp 3x
                   "
-                >
+                />
                 <source
                   media="(max-width: 485.98px)"
                   type="image/webp"
@@ -123,7 +121,7 @@
                     ../assets/img/dream-team-three-mobile@2x.webp 2x,
                     ../assets/img/dream-team-three-mobile@3x.webp 3x
                   "
-                >
+                />
                 <img
                   class="dream-team__img"
                   src="../assets/img/dream-team-three-desctop@1x.webp"
@@ -131,42 +129,36 @@
                   loading="lazy"
                   width="729"
                   height="487"
-                >
+                />
               </picture>
             </swiper-slide>
           </swiper>
         </div>
         <div class="dream-team__item dream-team__item_text-content">
-          <BaseSubtitle>
-            Для каждой
-          </BaseSubtitle>
+          <BaseSubtitle> Для каждой </BaseSubtitle>
           <p class="dream-team__text">
             Каждая девушка уникальна. Однако, мы схожи в миллионе мелочей.
           </p>
           <p class="dream-team__text">
-            Womazing ищет эти мелочи и создает прекрасные вещи, которые выгодно подчеркивают достоинства каждой девушки.
+            Womazing ищет эти мелочи и создает прекрасные вещи, которые выгодно
+            подчеркивают достоинства каждой девушки.
           </p>
-          <a
-            href="#"
-            class="dream-team__link"
-          >
-            Подробнее о бренде
-          </a>
+          <a href="#" class="dream-team__link"> Подробнее о бренде </a>
         </div>
       </div>
     </div>
-  </section>  
+  </section>
 </template>
 
 <script>
-import { Navigation, A11y } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/vue';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/a11y';
+import { Navigation, A11y } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/vue";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/a11y";
 
-import BaseTitle from './BaseTitle.vue';
-import BaseSubtitle from './BaseSubtitle.vue'
+import BaseTitle from "./BaseTitle.vue";
+import BaseSubtitle from "./BaseSubtitle.vue";
 
 export default {
   components: {
@@ -180,11 +172,11 @@ export default {
       modules: [Navigation, A11y],
     };
   },
-}
+};
 </script>
 
 <style lang="scss">
-@import '../assets/styles/components/slider-btn';
+@import "../assets/styles/components/slider-btn";
 
 .dream-team {
   padding: rem(65) 0 rem(130);

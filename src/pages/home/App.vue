@@ -10,45 +10,45 @@
 </template>
 
 <script>
-import TheHeader from '../../components/TheHeader.vue';
-import TheHomeHero from '../../components/TheHomeHero.vue';
-import TheNewCollection from '../../components/TheNewCollection.vue';
-import TheImportantToUs from '../../components/TheImportantToUs.vue';
-import TheDreamTeam from '../../components/TheDreamTeam.vue';
-import TheFooter from '../../components/TheFooter.vue';
+import TheHeader from "../../components/TheHeader.vue";
+import TheHomeHero from "../../components/TheHomeHero.vue";
+import TheNewCollection from "../../components/TheNewCollection.vue";
+import TheImportantToUs from "../../components/TheImportantToUs.vue";
+import TheDreamTeam from "../../components/TheDreamTeam.vue";
+import TheFooter from "../../components/TheFooter.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     TheHeader,
     TheHomeHero,
     TheNewCollection,
     TheImportantToUs,
     TheDreamTeam,
-    TheFooter
+    TheFooter,
   },
   provide() {
     return {
       getCurrentPageName: this.getCurrentPageName,
-    }
+    };
   },
   methods: {
     getCurrentPageName() {
-      return 'Главная'
-    }
-  }
-}
+      return "Главная";
+    },
+  },
+};
 </script>
 
 <style lang="scss">
-@import '../../assets/styles/common/common';
+@import "../../assets/styles/common/common";
 
 #app {
   .home-hero {
     position: relative;
 
     &::before {
-      content: '';
+      content: "";
       position: absolute;
       right: 0;
       top: rem(-108);

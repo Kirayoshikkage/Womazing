@@ -5,7 +5,7 @@
 </template>
 
 <style lang="scss">
-@import '../assets/styles/mixins/button-styles';
+@import "../assets/styles/mixins/button-styles";
 
 .button {
   @include button-styles;

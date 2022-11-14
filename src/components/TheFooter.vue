@@ -2,7 +2,7 @@
   <footer class="footer">
     <div class="container">
       <div class="footer__item">
-        <BaseLogo /> 
+        <BaseLogo />
         <CategoryList :category-list="categoryList" />
       </div>
       <div class="footer__item">
@@ -13,10 +13,10 @@
                 class="mean-of-communication__icon"
                 aria-hidden="true"
               />
-              <p class="visually-hidden">
-                Номер телефона:
-              </p>
-              <span class="mean-of-communication__communication">+7 (495) 823-54-12 </span>
+              <p class="visually-hidden">Номер телефона:</p>
+              <span class="mean-of-communication__communication"
+                >+7 (495) 823-54-12
+              </span>
             </MeanOfCommunication>
           </li>
           <li>
@@ -25,74 +25,56 @@
                 class="mean-of-communication__icon"
                 aria-hidden="true"
               />
-              <p class="visually-hidden">
-                Почта:
-              </p>
-              <span class="mean-of-communication__communication">hello@womazing.com</span>
+              <p class="visually-hidden">Почта:</p>
+              <span class="mean-of-communication__communication"
+                >hello@womazing.com</span
+              >
             </MeanOfCommunication>
           </li>
         </ul>
         <SocialNetwork>
           <li>
-            <a
-              href="#"
-              target="_blank"
-            >
+            <a href="#" target="_blank">
               <InstagramIcon aria-label="Наша страничка в Инстаграме" />
             </a>
           </li>
           <li>
-            <a
-              href="#"
-              target="_blank"
-            >
+            <a href="#" target="_blank">
               <TwitterIcon aria-label="Наша страничка в Твиттере" />
             </a>
           </li>
           <li>
-            <a
-              href="#"
-              target="_blank"
-            >
+            <a href="#" target="_blank">
               <FacebookIcon aria-label="Наша страничка в Фейсбуке" />
             </a>
           </li>
         </SocialNetwork>
         <ul class="footer__documents">
           <li>
-            <a
-              href="#"
-              class="footer__document"
-            >&copy; Все права защищены</a>
+            <a href="#" class="footer__document">&copy; Все права защищены</a>
           </li>
           <li>
-            <a
-              href="#"
-              class="footer__document"
-            >Политика конфиденциальности</a>
+            <a href="#" class="footer__document">Политика конфиденциальности</a>
           </li>
           <li>
-            <a
-              href="#"
-              class="footer__document"
-            >Публичная оферта</a>
+            <a href="#" class="footer__document">Публичная оферта</a>
           </li>
         </ul>
       </div>
     </div>
-  </footer>  
+  </footer>
 </template>
 
 <script>
-import BaseLogo from './BaseLogo.vue';
-import CategoryList from './CategoryList.vue';
-import MeanOfCommunication from './MeanOfCommunication.vue';
-import SocialNetwork from './SocialNetwork.vue'
-import FacebookIcon from './icons/FacebookIcon.vue'
-import InstagramIcon from './icons/InstagramIcon.vue'
-import TwitterIcon from './icons/TwitterIcon.vue'
-import PhoneIcon from './icons/PhoneIcon.vue';
-import EmailIcon from './icons/EmailIcon.vue';
+import BaseLogo from "./BaseLogo.vue";
+import CategoryList from "./CategoryList.vue";
+import MeanOfCommunication from "./MeanOfCommunication.vue";
+import SocialNetwork from "./SocialNetwork.vue";
+import FacebookIcon from "./icons/FacebookIcon.vue";
+import InstagramIcon from "./icons/InstagramIcon.vue";
+import TwitterIcon from "./icons/TwitterIcon.vue";
+import PhoneIcon from "./icons/PhoneIcon.vue";
+import EmailIcon from "./icons/EmailIcon.vue";
 
 export default {
   components: {
@@ -104,24 +86,23 @@ export default {
     InstagramIcon,
     TwitterIcon,
     PhoneIcon,
-    EmailIcon
+    EmailIcon,
   },
   data() {
     return {
       categoryList: [
-        ['Пальто', '#'],
-        ['Свитшоты', '#'],
-        ['Кардиганы', '#'],
-        ['Толстовки', '#'],
-
-      ]
-    }
-  }
-}
+        ["Пальто", "#"],
+        ["Свитшоты", "#"],
+        ["Кардиганы", "#"],
+        ["Толстовки", "#"],
+      ],
+    };
+  },
+};
 </script>
 
 <style lang="scss">
-@import '../assets/styles/mixins/text-animation';
+@import "../assets/styles/mixins/text-animation";
 
 .footer {
   padding: rem(100) 0;

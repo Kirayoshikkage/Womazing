@@ -1,9 +1,5 @@
 <template>
-  <div
-    class="preloader"
-    :class="hidingClass"
-    role="progressbar"
-  >
+  <div class="preloader" :class="hidingClass" role="progressbar">
     <div class="preloader__wrapper">
       <div class="preloader__item" />
       <div class="preloader__item" />
@@ -16,14 +12,14 @@ export default {
   data() {
     return {
       isShown: false,
-    }
+    };
   },
   computed: {
     hidingClass() {
       return {
-        'preloader_hide': !this.isShown,
-      }
-    }
+        preloader_hide: !this.isShown,
+      };
+    },
   },
   methods: {
     showPreloader() {
@@ -31,9 +27,9 @@ export default {
     },
     hidePreloader() {
       this.isShown = false;
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="scss">

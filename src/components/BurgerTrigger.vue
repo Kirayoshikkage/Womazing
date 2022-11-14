@@ -1,8 +1,5 @@
 <template>
-  <button
-    class="burger-trigger"
-    type="button"
-  >
+  <button class="burger-trigger" type="button">
     <span class="burger-trigger__item" />
     <span class="burger-trigger__item" />
     <span class="burger-trigger__item" />

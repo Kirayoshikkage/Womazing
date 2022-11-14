@@ -1,8 +1,5 @@
 <template>
-  <a
-    href="home.html"
-    class="logo"
-  >
+  <a href="home.html" class="logo">
     <svg
       class="logo__icon"
       aria-label="Womazing"

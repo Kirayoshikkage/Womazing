@@ -1,27 +1,16 @@
 <template>
-  <div
-    class="try-again"
-    :class="hidingClass"
-    role="alert"
-  >
-    <BaseSubtitle>
-      Произошла ошибка
-    </BaseSubtitle>
-    <button
-      ref="button"
-      class="try-again__button"
-    >
-      <span>
-        Обновить
-      </span>
+  <div class="try-again" :class="hidingClass" role="alert">
+    <BaseSubtitle> Произошла ошибка </BaseSubtitle>
+    <button ref="button" class="try-again__button">
+      <span> Обновить </span>
       <ReloadIcon />
     </button>
   </div>
 </template>
 
 <script>
-import BaseSubtitle from './BaseSubtitle';
-import ReloadIcon from './icons/ReloadIcon.vue';
+import BaseSubtitle from "./BaseSubtitle";
+import ReloadIcon from "./icons/ReloadIcon.vue";
 
 export default {
   components: { BaseSubtitle, ReloadIcon },
@@ -30,22 +19,22 @@ export default {
     callback: Function,
   },
   emits: {
-    'successful': null,
-    'unsuccessful': null,
-    'before-attempt': null,
-    'after-attempt': null
+    successful: null,
+    unsuccessful: null,
+    "before-attempt": null,
+    "after-attempt": null,
   },
   data() {
     return {
       isShown: false,
-    }
+    };
   },
   computed: {
     hidingClass() {
       return {
-        'try-again_hide': !this.isShown,
-      }
-    }
+        "try-again_hide": !this.isShown,
+      };
+    },
   },
   mounted() {
     this.setsEventHandlersOnButton();
@@ -63,38 +52,38 @@ export default {
     setsEventHandlersOnButton() {
       const { button } = this.$refs;
 
-      button.addEventListener('pointerup', this.tryAgain);
+      button.addEventListener("pointerup", this.tryAgain);
 
-      button.addEventListener('keydown', this.handlerKeydownOnButton);
+      button.addEventListener("keydown", this.handlerKeydownOnButton);
     },
     handlerKeydownOnButton({ code }) {
-      if (code !== 'Enter') return;
+      if (code !== "Enter") return;
 
       this.tryAgain();
     },
     removesEventHandlersOnButton() {
       const { button } = this.$refs;
 
-      button.removeEventListener('pointerup', this.tryAgain);
+      button.removeEventListener("pointerup", this.tryAgain);
 
-      button.removeEventListener('keydown', this.handlerKeydownOnButton);
+      button.removeEventListener("keydown", this.handlerKeydownOnButton);
     },
     tryAgain() {
-      this.$emit('before-attempt')
+      this.$emit("before-attempt");
 
       this.callback()
         .then((data) => {
-          this.$emit('successful', data)
+          this.$emit("successful", data);
         })
         .catch((err) => {
-          this.$emit('unsuccessful', err)
+          this.$emit("unsuccessful", err);
         })
         .finally(() => {
-          this.$emit('after-attempt')
-        })
-    }
-  }
-}
+          this.$emit("after-attempt");
+        });
+    },
+  },
+};
 </script>
 
 <style lang="scss">

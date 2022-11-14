@@ -1,8 +1,5 @@
 <template>
-  <a
-    :href="href"
-    class="mean-of-communication"
-  >
+  <a :href="href" class="mean-of-communication">
     <slot />
   </a>
 </template>
@@ -12,10 +9,10 @@ export default {
   props: {
     href: {
       type: String,
-      default: '#',
-    }
-  }
-}
+      default: "#",
+    },
+  },
+};
 </script>
 
 <style lang="scss">

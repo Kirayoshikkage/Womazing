@@ -5,10 +5,7 @@
       :key="category"
       class="category-list__item"
     >
-      <a
-        class="category-list__link"
-        :href="href"
-      >
+      <a class="category-list__link" :href="href">
         {{ category }}
       </a>
     </li>
@@ -22,14 +19,14 @@ export default {
       type: Array,
       default() {
         return [];
-      }
-    }
-  }
-}
+      },
+    },
+  },
+};
 </script>
 
 <style lang="scss">
-@import '../assets/styles/mixins/text-animation';
+@import "../assets/styles/mixins/text-animation";
 
 .category-list {
   &__link {

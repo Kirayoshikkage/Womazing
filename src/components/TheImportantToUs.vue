@@ -1,37 +1,32 @@
 <template>
   <section class="important-to-us">
     <div class="container">
-      <BaseTitle>
-        Что для нас важно
-      </BaseTitle>
+      <BaseTitle> Что для нас важно </BaseTitle>
       <ul class="important-to-us__list">
         <li class="important-to-us__item">
           <div class="dignity dignity_quality">
-            <BaseSubtitle>
-              Качество
-            </BaseSubtitle>
+            <BaseSubtitle> Качество </BaseSubtitle>
             <p class="dignity__desc">
-              Наши профессионалы работают на лучшем оборудовании для пошива одежды беспрецедентного качества
+              Наши профессионалы работают на лучшем оборудовании для пошива
+              одежды беспрецедентного качества
             </p>
           </div>
         </li>
         <li class="important-to-us__item">
           <div class="dignity dignity_speed">
-            <BaseSubtitle>
-              Скорость
-            </BaseSubtitle>
+            <BaseSubtitle> Скорость </BaseSubtitle>
             <p class="dignity__desc">
-              Благодаря отлаженной системе в Womazing мы можем отшивать до 20-ти единиц продукции в наших собственных цехах
+              Благодаря отлаженной системе в Womazing мы можем отшивать до 20-ти
+              единиц продукции в наших собственных цехах
             </p>
           </div>
         </li>
         <li class="important-to-us__item">
           <div class="dignity dignity_responsibility">
-            <BaseSubtitle>
-              Ответственность
-            </BaseSubtitle>
+            <BaseSubtitle> Ответственность </BaseSubtitle>
             <p class="dignity__desc">
-              Мы заботимся о людях и планете. Безотходное производство и комфортные условия труда - все это Womazing
+              Мы заботимся о людях и планете. Безотходное производство и
+              комфортные условия труда - все это Womazing
             </p>
           </div>
         </li>
@@ -41,15 +36,15 @@
 </template>
 
 <script>
-import BaseTitle from './BaseTitle.vue';
-import BaseSubtitle from './BaseSubtitle.vue'
+import BaseTitle from "./BaseTitle.vue";
+import BaseSubtitle from "./BaseSubtitle.vue";
 
 export default {
   components: {
     BaseTitle,
     BaseSubtitle,
-  }
-}
+  },
+};
 </script>
 
 <style lang="scss">
@@ -67,7 +62,7 @@ export default {
     padding-top: rem(98);
 
     &::before {
-      content: '';
+      content: "";
       position: absolute;
       left: 0;
       top: 0;
@@ -135,7 +130,7 @@ export default {
 
   @each $dignity in (quality, speed, responsibility) {
     .dignity_#{$dignity}::before {
-      background-image: url('../assets/img/#{$dignity}-icon.svg');
+      background-image: url("../assets/img/#{$dignity}-icon.svg");
     }
   }
 }

@@ -1,8 +1,5 @@
 <template>
-  <focus-trap
-    ref="focusTrap"
-    :active="false"
-  >
+  <focus-trap ref="focusTrap" :active="false">
     <header class="header">
       <div class="container">
         <BurgerTrigger id="header-burger-trigger" />
@@ -10,14 +7,11 @@
         <NavigationMenu :list-items="listNavigation" />
         <div class="header__group">
           <MeanOfCommunication href="tel:+74958235412">
-            <PhoneIcon
-              class="mean-of-communication__icon"
-              aria-hidden="true"
-            />
-            <p class="visually-hidden">
-              Номер телефона:
-            </p>
-            <span class="mean-of-communication__communication">+7 (495) 823-54-12 </span>
+            <PhoneIcon class="mean-of-communication__icon" aria-hidden="true" />
+            <p class="visually-hidden">Номер телефона:</p>
+            <span class="mean-of-communication__communication"
+              >+7 (495) 823-54-12
+            </span>
           </MeanOfCommunication>
           <ShoppingBasket />
         </div>
@@ -28,37 +22,30 @@
         @open="handleOpenBurgerMenu"
         @close="handleCloseBurgerMenu"
       >
-        <NavigationMenu
-          :list-items="listNavigation"
-        />
-        <MeanOfCommunication
-          href="tel:+74958235412"
-        >
-          <PhoneIcon
-            class="mean-of-communication__icon"
-            aria-hidden="true"
-          />
-          <p class="visually-hidden">
-            Номер телефона:
-          </p>
-          <span class="mean-of-communication__communication">+7 (495) 823-54-12 </span>
-        </MeanOfCommunication> 
+        <NavigationMenu :list-items="listNavigation" />
+        <MeanOfCommunication href="tel:+74958235412">
+          <PhoneIcon class="mean-of-communication__icon" aria-hidden="true" />
+          <p class="visually-hidden">Номер телефона:</p>
+          <span class="mean-of-communication__communication"
+            >+7 (495) 823-54-12
+          </span>
+        </MeanOfCommunication>
       </TheBurgerMenu>
     </header>
   </focus-trap>
 </template>
 
 <script>
- import { FocusTrap } from 'focus-trap-vue' 
+import { FocusTrap } from "focus-trap-vue";
 
-import BaseLogo from './BaseLogo.vue';
-import NavigationMenu from './NavigationMenu.vue';
-import MeanOfCommunication from './MeanOfCommunication.vue';
-import PhoneIcon from './icons/PhoneIcon.vue';
-import ShoppingBasket from './ShoppingBasket.vue';
-import BurgerTrigger from './BurgerTrigger.vue'
-import TheBurgerMenu from './TheBurgerMenu.vue';
-import getFontSizeBody from '../assets/scripts/helpers/getFontSizeBody';
+import BaseLogo from "./BaseLogo.vue";
+import NavigationMenu from "./NavigationMenu.vue";
+import MeanOfCommunication from "./MeanOfCommunication.vue";
+import PhoneIcon from "./icons/PhoneIcon.vue";
+import ShoppingBasket from "./ShoppingBasket.vue";
+import BurgerTrigger from "./BurgerTrigger.vue";
+import TheBurgerMenu from "./TheBurgerMenu.vue";
+import getFontSizeBody from "../assets/scripts/helpers/getFontSizeBody";
 
 export default {
   components: {
@@ -74,17 +61,17 @@ export default {
   data() {
     return {
       listNavigation: [
-        ['Главная', '#'],
-        ['Магазин', '#'],
-        ['О бренде', '#'],
-        ['Контакты', '#'],
+        ["Главная", "#"],
+        ["Каталог", "#"],
+        ["О бренде", "#"],
+        ["Контакты", "#"],
       ],
-    }
+    };
   },
   methods: {
     configuresBurgerMenu() {
       return {
-        triggerSelector: '#header-burger-trigger',
+        triggerSelector: "#header-burger-trigger",
         breakpoints: {
           // 62rem - 992px
           [getFontSizeBody() * 62]: () => {
@@ -92,17 +79,17 @@ export default {
               this.$refs.burgerMenu.close();
             }
           },
-        }
-      }
+        },
+      };
     },
     handleOpenBurgerMenu() {
       this.$refs.focusTrap.activate();
     },
     handleCloseBurgerMenu() {
       this.$refs.focusTrap.deactivate();
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="scss">

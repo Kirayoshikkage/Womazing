@@ -10,13 +10,20 @@ module.exports = defineConfig({
   },
   pages: {
     home: {
-      entry: './src/pages/home/main.js',
-      template: 'public/index.html',
-      filename: 'home.html',
-      title: 'Home',
-      chunks: ['chunk-vendors', 'chunk-common', 'home']
+      entry: "./src/pages/home/main.js",
+      template: "public/index.html",
+      filename: "home.html",
+      title: "Home",
+      chunks: ["chunk-vendors", "chunk-common", "home"],
     },
-  }
+    catalog: {
+      entry: "./src/pages/catalog/main.js",
+      template: "public/index.html",
+      filename: "catalog.html",
+      title: "Catalog",
+      chunks: ["chunk-vendors", "chunk-common", "catalog"],
+    },
+  },
 });
 
 function addStyleResource(rule) {

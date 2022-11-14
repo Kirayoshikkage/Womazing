@@ -1,9 +1,7 @@
 <template>
   <section class="new-collection">
     <div class="container">
-      <BaseTitle>
-        Новая коллекция
-      </BaseTitle>
+      <BaseTitle> Новая коллекция </BaseTitle>
       <div class="new-collection__slider">
         <swiper
           :modules="modules"
@@ -11,24 +9,20 @@
           :aria-hidden="isEmpyListItemsNewCollection"
           @swiper="setsVariableSwiper"
         >
-          <swiper-slide 
+          <swiper-slide
             v-for="item of listItemsForSwiper"
             v-slot="{ isVisible }"
             :key="item.id"
           >
-            <CardProduct 
-              :product="item" 
-              :focus-lock="!isVisible" 
+            <CardProduct
+              :product="item"
+              :focus-lock="!isVisible"
               :aria-hidden="!isVisible"
             />
           </swiper-slide>
           <template #container-start>
-            <div
-              class="swiper-button-prev"
-            />
-            <div
-              class="swiper-button-next"
-            />
+            <div class="swiper-button-prev" />
+            <div class="swiper-button-next" />
           </template>
         </swiper>
         <BasePreloader ref="preloader" />
@@ -41,28 +35,26 @@
           @after-attempt="afterAttemptHandler"
         />
       </div>
-      <BaseLink class="link_hollow-gothic">
-        Каталог товаров
-      </BaseLink>
+      <BaseLink class="link_hollow-gothic"> Каталог товаров </BaseLink>
     </div>
   </section>
 </template>
 
 <script>
-import { Navigation, A11y } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/vue';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/a11y';
+import { Navigation, A11y } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/vue";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/a11y";
 
-import BaseTitle from './BaseTitle.vue';
-import CardProduct from './CardProduct.vue';
-import BasePreloader from './BasePreloader.vue';
-import TryAgain from './TryAgain.vue';
-import BaseLink from './BaseLink.vue';
+import BaseTitle from "./BaseTitle.vue";
+import CardProduct from "./CardProduct.vue";
+import BasePreloader from "./BasePreloader.vue";
+import TryAgain from "./TryAgain.vue";
+import BaseLink from "./BaseLink.vue";
 
-import { getNewCollectionItems } from '../Api.js';
-import getFontSizeBody from '../assets/scripts/helpers/getFontSizeBody.js';
+import { getNewCollectionItems } from "../Api.js";
+import getFontSizeBody from "../assets/scripts/helpers/getFontSizeBody.js";
 
 export default {
   components: {
@@ -72,7 +64,7 @@ export default {
     CardProduct,
     BaseLink,
     BasePreloader,
-    TryAgain
+    TryAgain,
   },
   setup() {
     return {
@@ -83,7 +75,7 @@ export default {
     return {
       listItemsNewCollection: [],
       stubListItemsNewCollection: Array(5).fill({}),
-    }
+    };
   },
   computed: {
     isEmpyListItemsNewCollection() {
@@ -94,44 +86,44 @@ export default {
         slidesPerView: 3,
         spaceBetween: 30,
         navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
         },
         a11y: {
-          firstSlideMessage: 'Это первый слайд',
-          lastSlideMessage: 'Это последний слайд',
-          nextSlideMessage: 'Следующий слайд',
-          prevSlideMessage: 'Предыдущий слайд'
+          firstSlideMessage: "Это первый слайд",
+          lastSlideMessage: "Это последний слайд",
+          nextSlideMessage: "Следующий слайд",
+          prevSlideMessage: "Предыдущий слайд",
         },
         watchSlidesProgress: !this.isEmpyListItemsNewCollection,
         breakpoints: {
           0: {
-            slidesPerView: 1
+            slidesPerView: 1,
           },
           // 36rem - 576px
           [getFontSizeBody() * 36]: {
-            slidesPerView: 2
+            slidesPerView: 2,
           },
           // 62rem - 992px
           [getFontSizeBody() * 62]: {
-            slidesPerView: 3
+            slidesPerView: 3,
           },
           // 128rem - 2048px
           2048: {
-            slidesPerView: 4
+            slidesPerView: 4,
           },
         },
         enabled: false,
-      }
+      };
     },
     listItemsForSwiper() {
-      return this.isEmpyListItemsNewCollection ?
-        this.stubListItemsNewCollection :
-        this.listItemsNewCollection;
+      return this.isEmpyListItemsNewCollection
+        ? this.stubListItemsNewCollection
+        : this.listItemsNewCollection;
     },
     callbackForTryAgain() {
       return getNewCollectionItems;
-    }
+    },
   },
   watch: {
     listItemsNewCollection() {
@@ -141,9 +133,9 @@ export default {
     },
     isEmpyListItemsNewCollection(value) {
       if (!value) {
-        this.$options.swiper.enable()
+        this.$options.swiper.enable();
       }
-    }
+    },
   },
   mounted() {
     this.setsListItemsNewCollection();
@@ -161,7 +153,7 @@ export default {
         })
         .finally(() => {
           this.$refs.preloader.hidePreloader();
-        })
+        });
     },
     beforeAttemptHandler() {
       this.$refs.tryAgain.hideTryAgain();
@@ -179,13 +171,13 @@ export default {
     },
     setsVariableSwiper(swiper) {
       this.$options.swiper = swiper;
-    }
+    },
   },
-}
+};
 </script>
 
 <style lang="scss">
-@import '../assets/styles/components/slider-btn';
+@import "../assets/styles/components/slider-btn";
 
 .new-collection {
   padding: rem(65) 0;
@@ -211,7 +203,7 @@ export default {
     padding: rem(91) 0 0 0;
 
     &::before {
-      content: '';
+      content: "";
       position: absolute;
       top: 0;
       z-index: 9;
@@ -229,7 +221,7 @@ export default {
     }
   }
 
-  .swiper[aria-hidden='true']::before {
+  .swiper[aria-hidden="true"]::before {
     opacity: 1;
     visibility: visible;
   }
