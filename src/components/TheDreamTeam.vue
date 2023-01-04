@@ -4,17 +4,7 @@
       <BaseTitle> Команда мечты Womazing </BaseTitle>
       <div class="dream-team__content">
         <div class="dream-team__item">
-          <swiper
-            :modules="modules"
-            :slides-per-view="1"
-            navigation
-            :a11y="{
-              firstSlideMessage: 'Это первый слайд',
-              lastSlideMessage: 'Это последний слайд',
-              nextSlideMessage: 'Следующий слайд',
-              prevSlideMessage: 'Предыдущий слайд',
-            }"
-          >
+          <swiper :modules="modules" v-bind="swiperParams">
             <swiper-slide v-slot="{ isActive }">
               <picture :aria-hidden="!isActive">
                 <source
@@ -132,6 +122,14 @@
                 />
               </picture>
             </swiper-slide>
+            <template #container-end>
+              <BaseNavigation
+                class="navigation_fill navigation_prev swiper-button-prev"
+              />
+              <BaseNavigation
+                class="navigation_fill navigation_next swiper-button-next"
+              />
+            </template>
           </swiper>
         </div>
         <div class="dream-team__item dream-team__item_text-content">
@@ -151,12 +149,13 @@
 </template>
 
 <script>
-import { Navigation, A11y } from "swiper";
+import { A11y, Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
-import "swiper/css/navigation";
 import "swiper/css/a11y";
+import "swiper/css/navigation";
 
+import BaseNavigation from "./BaseNavigation.vue";
 import BaseTitle from "./BaseTitle.vue";
 import BaseSubtitle from "./BaseSubtitle.vue";
 
@@ -164,20 +163,36 @@ export default {
   components: {
     Swiper,
     SwiperSlide,
+    BaseNavigation,
     BaseTitle,
     BaseSubtitle,
   },
   setup() {
     return {
-      modules: [Navigation, A11y],
+      modules: [A11y, Navigation],
     };
+  },
+  computed: {
+    swiperParams() {
+      return {
+        slidesPerView: 1,
+        navigation: {
+          prevEl: ".dream-team .navigation_prev",
+          nextEl: ".dream-team .navigation_next",
+        },
+        a11y: {
+          firstSlideMessage: "Это первая страница",
+          lastSlideMessage: "Это последняя страница",
+          nextSlideMessage: "Следующая страница",
+          prevSlideMessage: "Предыдущая страница",
+        },
+      };
+    },
   },
 };
 </script>
 
 <style lang="scss">
-@import "../assets/styles/components/slider-btn";
-
 .dream-team {
   padding: rem(65) 0 rem(130);
 
@@ -206,6 +221,40 @@ export default {
 
   .swiper {
     height: 100%;
+
+    @include x-small {
+      padding: 0 0 rem(75);
+    }
+  }
+
+  .navigation {
+    top: 50%;
+    margin: 0;
+
+    &_prev {
+      left: 1rem;
+      transform: translateY(-50%) rotate(180deg);
+    }
+
+    &_next {
+      right: 1rem;
+      transform: translateY(-50%);
+    }
+
+    @include x-small {
+      top: auto;
+      bottom: 0;
+
+      &_prev {
+        left: 50%;
+        transform: translateX(-100%) rotate(180deg);
+      }
+
+      &_next {
+        right: 50%;
+        transform: translateX(100%);
+      }
+    }
   }
 
   &__img {
@@ -251,35 +300,8 @@ export default {
     }
   }
 
-  .swiper-button-prev,
-  .swiper-button-next {
-    @extend .slider-btn;
-  }
-
   @include small {
     padding: rem(32) 0 rem(65);
-  }
-
-  @include x-small {
-    .swiper {
-      padding-bottom: rem(66);
-    }
-
-    .swiper-button-prev,
-    .swiper-button-next {
-      top: auto;
-      bottom: 0;
-    }
-
-    .swiper-button-prev {
-      left: 50%;
-      transform: translate(-100%);
-    }
-
-    .swiper-button-next {
-      right: 50%;
-      transform: translate(100%);
-    }
   }
 }
 </style>

@@ -1,9 +1,14 @@
 <template>
   <div class="try-again" :class="hidingClass" role="alert">
     <BaseSubtitle> Произошла ошибка </BaseSubtitle>
-    <button ref="button" class="try-again__button">
+    <button
+      class="try-again__button"
+      @pointerup="attemptHandler"
+      @keydown.enter="attemptHandler"
+      @keydown.space="attemptHandler"
+    >
       <span> Обновить </span>
-      <ReloadIcon />
+      <ReloadIcon aria-hidden="true" />
     </button>
   </div>
 </template>
@@ -14,15 +19,8 @@ import ReloadIcon from "./icons/ReloadIcon.vue";
 
 export default {
   components: { BaseSubtitle, ReloadIcon },
-  props: {
-    // eslint-disable-next-line vue/require-default-prop
-    callback: Function,
-  },
   emits: {
-    successful: null,
-    unsuccessful: null,
-    "before-attempt": null,
-    "after-attempt": null,
+    attempt: null,
   },
   data() {
     return {
@@ -32,15 +30,9 @@ export default {
   computed: {
     hidingClass() {
       return {
-        "try-again_hide": !this.isShown,
+        hide: !this.isShown,
       };
     },
-  },
-  mounted() {
-    this.setsEventHandlersOnButton();
-  },
-  beforeUnmount() {
-    this.removesEventHandlersOnButton();
   },
   methods: {
     showTryAgain() {
@@ -49,38 +41,8 @@ export default {
     hideTryAgain() {
       this.isShown = false;
     },
-    setsEventHandlersOnButton() {
-      const { button } = this.$refs;
-
-      button.addEventListener("pointerup", this.tryAgain);
-
-      button.addEventListener("keydown", this.handlerKeydownOnButton);
-    },
-    handlerKeydownOnButton({ code }) {
-      if (code !== "Enter") return;
-
-      this.tryAgain();
-    },
-    removesEventHandlersOnButton() {
-      const { button } = this.$refs;
-
-      button.removeEventListener("pointerup", this.tryAgain);
-
-      button.removeEventListener("keydown", this.handlerKeydownOnButton);
-    },
-    tryAgain() {
-      this.$emit("before-attempt");
-
-      this.callback()
-        .then((data) => {
-          this.$emit("successful", data);
-        })
-        .catch((err) => {
-          this.$emit("unsuccessful", err);
-        })
-        .finally(() => {
-          this.$emit("after-attempt");
-        });
+    attemptHandler() {
+      this.$emit("attempt");
     },
   },
 };
@@ -91,27 +53,28 @@ export default {
   transition-property: opacity, visibility;
   transition-duration: var(--transition-duration);
 
-  &_hide {
+  &.hide {
     opacity: 0;
     visibility: hidden;
   }
 
   .subtitle {
-    margin: 0 0 rem(24);
+    margin: 0 0 rem(16);
     color: var(--color-white);
+
+    @include x-small {
+      font-size: rem(25);
+    }
   }
 
   &__button {
     display: flex;
     align-items: center;
+    margin: 0 auto;
     font-size: rem(20);
     letter-spacing: 0.02em;
     color: var(--color-white);
     gap: 1rem;
-
-    @include x-small {
-      font-size: 1rem;
-    }
 
     @include mouse-device {
       border-bottom: rem(1) solid transparent;

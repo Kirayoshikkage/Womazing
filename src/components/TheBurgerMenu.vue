@@ -61,13 +61,11 @@ export default {
   },
   watch: {
     isOpen() {
-      this.switchesBlockScroll();
+      this.scrollLockToggles();
 
-      this.switchesClassActivityTrigger();
+      this.activityClassTogglesAtTheTrigger();
 
-      this.changesTextForA11yAtTrigger();
-
-      this.switchesAriaExpandedAtTrigger();
+      this.ariaExpandedTogglesAtTheTrigger();
     },
     currentBreakpoint() {
       this.callsFunctionsBreakpoint();
@@ -91,7 +89,7 @@ export default {
     window.removeEventListener("resize", this.wrapperForUpdatingBreakpoints);
   },
   methods: {
-    switchesBlockScroll() {
+    scrollLockToggles() {
       const { body } = document;
 
       if (this.isOpen) {
@@ -102,7 +100,7 @@ export default {
 
       body.classList.remove("overflow-hidden");
     },
-    switchesClassActivityTrigger() {
+    activityClassTogglesAtTheTrigger() {
       if (this.isOpen) {
         this.trigger.classList.add("active");
 
@@ -111,16 +109,7 @@ export default {
 
       this.trigger.classList.remove("active");
     },
-    changesTextForA11yAtTrigger() {
-      if (this.isOpen) {
-        this.trigger.setAttribute("aria-label", "Закрыть бургер меню");
-
-        return;
-      }
-
-      this.trigger.setAttribute("aria-label", "Открыть бургер меню");
-    },
-    switchesAriaExpandedAtTrigger() {
+    ariaExpandedTogglesAtTheTrigger() {
       if (this.isOpen) {
         this.trigger.setAttribute("aria-expanded", true);
 
@@ -184,7 +173,7 @@ export default {
       element.style.paddingRight = 0;
     },
     keydownEventHandlerOnTrigger(e) {
-      if (e.code !== "Enter") return;
+      if (e.code !== "Enter" && e.code !== "Space") return;
 
       this.toggle();
     },

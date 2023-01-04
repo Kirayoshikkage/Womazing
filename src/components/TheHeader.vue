@@ -19,8 +19,8 @@
       <TheBurgerMenu
         v-bind="configuresBurgerMenu()"
         ref="burgerMenu"
-        @open="handleOpenBurgerMenu"
-        @close="handleCloseBurgerMenu"
+        @open="openHandlerBurgerMenu"
+        @close="closeHandlerBurgerMenu"
       >
         <NavigationMenu :list-items="listNavigation" />
         <MeanOfCommunication href="tel:+74958235412">
@@ -61,8 +61,8 @@ export default {
   data() {
     return {
       listNavigation: [
-        ["Главная", "#"],
-        ["Каталог", "#"],
+        ["Главная", "index.html"],
+        ["Каталог", "catalog.html"],
         ["О бренде", "#"],
         ["Контакты", "#"],
       ],
@@ -82,10 +82,10 @@ export default {
         },
       };
     },
-    handleOpenBurgerMenu() {
+    openHandlerBurgerMenu() {
       this.$refs.focusTrap.activate();
     },
-    handleCloseBurgerMenu() {
+    closeHandlerBurgerMenu() {
       this.$refs.focusTrap.deactivate();
     },
   },

@@ -1,6 +1,7 @@
 <template>
-  <div class="preloader" :class="hidingClass" role="progressbar">
-    <div class="preloader__wrapper">
+  <div class="preloader" :class="hidingClass" role="alert">
+    <h3 class="visually-hidden">Загрузка</h3>
+    <div class="preloader__wrapper" aria-hidden="true">
       <div class="preloader__item" />
       <div class="preloader__item" />
     </div>
@@ -11,13 +12,13 @@
 export default {
   data() {
     return {
-      isShown: false,
+      isShown: true,
     };
   },
   computed: {
     hidingClass() {
       return {
-        preloader_hide: !this.isShown,
+        hide: !this.isShown,
       };
     },
   },
@@ -34,18 +35,29 @@ export default {
 
 <style lang="scss">
 .preloader {
+  --size: 1;
+
   transition-property: opacity, visibility;
   transition-duration: var(--transition-duration);
 
+  &.hide {
+    opacity: 0;
+    visibility: hidden;
+
+    .preloader__item {
+      animation-play-state: paused;
+    }
+  }
+
   &__wrapper {
     position: relative;
-    width: rem(80);
-    height: rem(80);
+    width: calc(rem(80) * var(--size));
+    height: calc(rem(80) * var(--size));
   }
 
   &__item {
     position: absolute;
-    border: rem(4) solid var(--color-white);
+    border: calc(rem(4) * var(--size)) solid var(--color-white);
     border-radius: 50%;
     opacity: 1;
     animation: animation 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
@@ -55,35 +67,26 @@ export default {
     animation-delay: -0.5s;
   }
 
-  &_hide {
-    opacity: 0;
-    visibility: hidden;
-
-    .preloader__item {
-      animation-play-state: paused;
-    }
-  }
-
   @keyframes animation {
     0% {
-      left: rem(36);
-      top: rem(36);
+      left: calc(rem(36) * var(--size));
+      top: calc(rem(36) * var(--size));
       width: 0;
       height: 0;
       opacity: 0;
     }
 
     4.9% {
-      left: rem(36);
-      top: rem(36);
+      left: calc(rem(36) * var(--size));
+      top: calc(rem(36) * var(--size));
       width: 0;
       height: 0;
       opacity: 0;
     }
 
     5% {
-      left: rem(36);
-      top: rem(36);
+      left: calc(rem(36) * var(--size));
+      top: calc(rem(36) * var(--size));
       width: 0;
       height: 0;
       opacity: 1;
@@ -92,8 +95,8 @@ export default {
     100% {
       left: 0;
       top: 0;
-      width: rem(72);
-      height: rem(72);
+      width: calc(rem(72) * var(--size));
+      height: calc(rem(72) * var(--size));
       opacity: 0;
     }
   }

@@ -1,307 +1,324 @@
 <template>
   <section class="new-collection">
     <div class="container">
-      <BaseTitle> Новая коллекция </BaseTitle>
+      <BaseTitle class="new-collection__title new-collection__title_mobile">
+        Новая коллекция
+      </BaseTitle>
+      <div class="new-collection__wrapper">
+        <BaseTitle class="new-collection__title new-collection__title_desctop">
+          Новая коллекция
+        </BaseTitle>
+        <BaseNavigation
+          class="navigation_fill navigation_prev swiper-button-prev"
+        />
+        <BaseNavigation
+          class="navigation_fill navigation_next swiper-button-next"
+        />
+      </div>
+      <p class="visually-hidden" aria-live="polite">
+        <span :aria-hidden="contentIsLock">
+          Показано: {{ page }} из {{ maxAmountPages }} страниц
+        </span>
+      </p>
       <div class="new-collection__slider">
         <swiper
           :modules="modules"
-          v-bind="swiperParameters"
-          :aria-hidden="isEmpyListItemsNewCollection"
-          @swiper="setsVariableSwiper"
+          v-bind="swiperParams"
+          @init="initSwiperHandler"
+          @slide-change="slideChangeSwiperHandler"
+          @breakpoint="breakpointChangeSwiperHandler"
         >
           <swiper-slide
-            v-for="item of listItemsForSwiper"
+            v-for="(item, idx) of listItems"
+            :key="idx"
             v-slot="{ isVisible }"
-            :key="item.id"
+            :virtual-index="idx"
           >
-            <CardProduct
-              :product="item"
-              :focus-lock="!isVisible"
-              :aria-hidden="!isVisible"
-            />
+            <CardProduct :product="item" :inert="!isVisible || contentIsLock" />
           </swiper-slide>
-          <template #container-start>
-            <div class="swiper-button-prev" />
-            <div class="swiper-button-next" />
-          </template>
         </swiper>
-        <BasePreloader ref="preloader" />
-        <TryAgain
-          ref="tryAgain"
-          :callback="callbackForTryAgain"
-          @successful="successHandler"
-          @unsuccessful="unsuccessfulHandler"
-          @before-attempt="beforeAttemptHandler"
-          @after-attempt="afterAttemptHandler"
+        <LoadStatusHandler
+          ref="loadStatusHandler"
+          @status-change="loadStatusChangeHandler"
+          @attempt="attemptHandler"
         />
       </div>
-      <BaseLink class="link_hollow-gothic"> Каталог товаров </BaseLink>
+      <BaseLink href="catalog.html" class="link_hollow-gothic">
+        Каталог товаров
+      </BaseLink>
     </div>
   </section>
 </template>
 
 <script>
-import { Navigation, A11y } from "swiper";
+import { getItems } from "@/Api.js";
+import getFontSizeBody from "@/assets/scripts/helpers/getFontSizeBody.js";
+import { Virtual, Navigation, A11y } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
+import "swiper/css/virtual";
 import "swiper/css/navigation";
 import "swiper/css/a11y";
 
 import BaseTitle from "./BaseTitle.vue";
-import CardProduct from "./CardProduct.vue";
-import BasePreloader from "./BasePreloader.vue";
-import TryAgain from "./TryAgain.vue";
+import BaseNavigation from "./BaseNavigation";
+import CardProduct from "@/components/CardProduct.vue";
+import LoadStatusHandler from "./LoadStatusHandler.vue";
 import BaseLink from "./BaseLink.vue";
-
-import { getNewCollectionItems } from "../Api.js";
-import getFontSizeBody from "../assets/scripts/helpers/getFontSizeBody.js";
 
 export default {
   components: {
+    BaseTitle,
+    BaseNavigation,
     Swiper,
     SwiperSlide,
-    BaseTitle,
     CardProduct,
+    LoadStatusHandler,
     BaseLink,
-    BasePreloader,
-    TryAgain,
   },
   setup() {
     return {
-      modules: [Navigation, A11y],
+      modules: [Virtual, Navigation, A11y],
     };
   },
   data() {
     return {
-      listItemsNewCollection: [],
-      stubListItemsNewCollection: Array(5).fill({}),
+      page: 1,
+      amount: undefined,
+      listPages: {},
+      total: undefined,
+      contentIsLock: false,
+      swiper: undefined,
     };
   },
   computed: {
-    isEmpyListItemsNewCollection() {
-      return !this.listItemsNewCollection.length;
-    },
-    swiperParameters() {
+    requestParams() {
       return {
-        slidesPerView: 3,
+        newCollection: true,
+        page: this.page,
+        amount: this.amount,
+      };
+    },
+    swiperParams() {
+      return {
         spaceBetween: 30,
+        virtual: true,
+        simulateTouch: false,
+        watchSlidesProgress: true,
         navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
+          prevEl: ".new-collection .navigation_prev",
+          nextEl: ".new-collection .navigation_next",
         },
         a11y: {
-          firstSlideMessage: "Это первый слайд",
-          lastSlideMessage: "Это последний слайд",
-          nextSlideMessage: "Следующий слайд",
-          prevSlideMessage: "Предыдущий слайд",
+          firstSlideMessage: "Это первая страница",
+          lastSlideMessage: "Это последняя страница",
+          nextSlideMessage: "Следующая страница",
+          prevSlideMessage: "Предыдущая страница",
         },
-        watchSlidesProgress: !this.isEmpyListItemsNewCollection,
         breakpoints: {
-          0: {
-            slidesPerView: 1,
-          },
-          // 36rem - 576px
-          [getFontSizeBody() * 36]: {
-            slidesPerView: 2,
-          },
           // 62rem - 992px
           [getFontSizeBody() * 62]: {
             slidesPerView: 3,
+            slidesPerGroup: 3,
           },
-          // 128rem - 2048px
-          2048: {
-            slidesPerView: 4,
+          // 48rem - 768px
+          [getFontSizeBody() * 48]: {
+            slidesPerView: 2,
+            slidesPerGroup: 2,
+          },
+          0: {
+            slidesPerView: 1,
+            slidesPerGroup: 1,
           },
         },
-        enabled: false,
       };
     },
-    listItemsForSwiper() {
-      return this.isEmpyListItemsNewCollection
-        ? this.stubListItemsNewCollection
-        : this.listItemsNewCollection;
+    maxAmountPages() {
+      return Math.ceil(this.total / this.amount) || 1;
     },
-    callbackForTryAgain() {
-      return getNewCollectionItems;
+    listPagesWithStubs() {
+      return Object.fromEntries(
+        Array.from(Array(this.maxAmountPages), (item, idx) => {
+          let page = idx + 1;
+          let data = this.listPages[page];
+
+          if (!data) {
+            let isLastPage = page === this.maxAmountPages;
+            let isLacks = page * this.amount > this.total;
+
+            data =
+              isLastPage && isLacks && this.total
+                ? Array(this.total - (page - 1) * this.amount).fill({})
+                : Array(this.amount).fill({});
+          }
+
+          return [page, data];
+        })
+      );
+    },
+    listItems() {
+      return Object.values(this.listPagesWithStubs).flat();
     },
   },
   watch: {
-    listItemsNewCollection() {
-      if (this.isEmpyListItemsNewCollection) {
-        this.$refs.tryAgain.showTryAgain();
+    page() {
+      if (!this.listPages[this.page]) {
+        this.addsItemsOnPage();
       }
     },
-    isEmpyListItemsNewCollection(value) {
-      if (!value) {
-        this.$options.swiper.enable();
+    amount(newValue, oldValue) {
+      if (!oldValue) return;
+
+      if (this.page == 1) {
+        this.addsItemsOnPage();
       }
+
+      this.resetsProgress();
+    },
+    contentIsLock() {
+      this.togglesStateSwiper();
     },
   },
   mounted() {
-    this.setsListItemsNewCollection();
+    this.addsItemsOnPage();
   },
   methods: {
-    setsListItemsNewCollection() {
-      this.$refs.preloader.showPreloader();
+    addsItemsOnPage() {
+      let { amount, page } = this.requestParams;
 
-      getNewCollectionItems()
-        .then((data) => {
-          this.listItemsNewCollection = data;
+      this.$refs.loadStatusHandler.setsPendingStatus();
+
+      getItems(this.requestParams)
+        .then(({ data = null, total = null }) => {
+          if (amount != this.amount) return;
+
+          if (!data || !total || !data.length) {
+            this.$refs.loadStatusHandler.setsRejectedStatus();
+
+            return;
+          }
+
+          this.total = total;
+
+          this.listPages[page] = data;
+
+          this.$refs.loadStatusHandler.setsFulfilledStatus();
         })
         .catch(() => {
-          this.$refs.tryAgain.showTryAgain();
-        })
-        .finally(() => {
-          this.$refs.preloader.hidePreloader();
+          this.$refs.loadStatusHandler.setsRejectedStatus();
         });
     },
-    beforeAttemptHandler() {
-      this.$refs.tryAgain.hideTryAgain();
+    attemptHandler() {
+      this.addsItemsOnPage();
+    },
+    loadStatusChangeHandler(status) {
+      this.contentIsLock = status !== "fulfilled";
+    },
+    initSwiperHandler(swiper) {
+      this.swiper = swiper;
 
-      this.$refs.preloader.showPreloader();
+      this.resetsAriaLiveSwiperWrapper(swiper.wrapperEl);
     },
-    successHandler(data) {
-      this.listItemsNewCollection = data;
+    resetsAriaLiveSwiperWrapper(wrapper) {
+      this.$nextTick().then(() => {
+        wrapper.setAttribute("aria-live", "off");
+      });
     },
-    unsuccessfulHandler() {
-      this.$refs.tryAgain.showTryAgain();
+    slideChangeSwiperHandler({ activeIndex }) {
+      this.page = Math.ceil(activeIndex / this.amount + 1);
     },
-    afterAttemptHandler() {
-      this.$refs.preloader.hidePreloader();
+    breakpointChangeSwiperHandler(swiper, { slidesPerView }) {
+      this.amount = slidesPerView;
     },
-    setsVariableSwiper(swiper) {
-      this.$options.swiper = swiper;
+    resetsProgress() {
+      this.page = 1;
+
+      this.listPages = {};
+
+      this.total = undefined;
+
+      this.swiper.setProgress(0);
+    },
+    togglesStateSwiper() {
+      if (this.contentIsLock) {
+        this.swiper.disable();
+
+        return;
+      }
+
+      this.swiper.enable();
     },
   },
 };
 </script>
 
 <style lang="scss">
-@import "../assets/styles/components/slider-btn";
-
 .new-collection {
   padding: rem(65) 0;
 
-  .title {
-    margin: 0 0 rem(62);
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: rem(65);
 
     @include x-small {
-      margin: 0 0 rem(32);
+      gap: rem(32);
+    }
+  }
+
+  &__wrapper {
+    display: flex;
+    align-items: center;
+
+    @include small {
+      justify-content: center;
+    }
+  }
+
+  &__title {
+    &_desctop {
+      margin: 0 auto 0 0;
+
+      @include small {
+        display: none;
+      }
+    }
+
+    &_mobile {
+      margin: 0;
+
+      @media (min-width: rem(768)) {
+        display: none;
+      }
+    }
+  }
+
+  .swiper-button-lock {
+    display: flex;
+  }
+
+  .navigation {
+    position: static;
+    margin: 0;
+  }
+
+  .card-product {
+    @include small {
+      margin: 0 auto;
+      max-width: rem(350);
     }
   }
 
   &__slider {
     position: relative;
-    margin: 0 0 rem(65);
 
     @include small {
-      margin: 0 0 rem(24);
-    }
-  }
-
-  .swiper {
-    padding: rem(91) 0 0 0;
-
-    &::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      z-index: 9;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(110, 156, 159, 90%);
-      opacity: 0;
-      visibility: hidden;
-      transition-property: opacity, visibility;
-      transition-duration: var(--transition-duration);
+      margin: 0 0 rem(-32);
     }
 
     @include x-small {
-      padding: 0 0 rem(66);
+      margin: 0 0 rem(-16);
     }
-  }
-
-  .swiper[aria-hidden="true"]::before {
-    opacity: 1;
-    visibility: visible;
-  }
-
-  .card-product {
-    @include x-small {
-      &__link {
-        margin: 0 auto rem(24);
-        max-width: rem(350);
-      }
-    }
-
-    @media (orientation: landscape) and (max-width: rem(991.98)) and (min-width: rem(768)) and (max-height: rem(500)) {
-      &__link {
-        height: rem(320);
-      }
-    }
-
-    @media (orientation: landscape) and (max-width: rem(575.98)) {
-      &__link {
-        height: rem(320);
-      }
-
-      &__img {
-        object-fit: contain;
-      }
-    }
-  }
-
-  .swiper-button-prev,
-  .swiper-button-next {
-    right: 0;
-    top: 0;
-    margin: 0;
-
-    @include x-small {
-      top: auto;
-      bottom: 0;
-    }
-
-    @extend .slider-btn;
-  }
-
-  .swiper-button-prev {
-    left: auto;
-    transform: translateX(-100%);
-
-    @include x-small {
-      left: 50%;
-    }
-  }
-
-  .swiper-button-next {
-    @include x-small {
-      right: 50%;
-      transform: translateX(100%);
-    }
-  }
-
-  .preloader,
-  .try-again {
-    position: absolute;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-  }
-
-  .preloader {
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-  }
-
-  .try-again {
-    left: 0;
-    top: 0;
-    flex-direction: column;
   }
 
   .link {
@@ -310,8 +327,35 @@ export default {
     width: max-content;
   }
 
-  @include x-small {
+  .load-status-handler {
+    z-index: 11;
+
+    @media (min-width: rem(768)) {
+      top: -1rem;
+      right: -1rem;
+      bottom: -1rem;
+      left: -1rem;
+    }
+  }
+
+  @include small {
     padding: 2rem 0;
+
+    &__title_mobile {
+      order: 1;
+    }
+
+    &__wrapper {
+      order: 3;
+    }
+
+    &__slider {
+      order: 2;
+    }
+
+    .link {
+      order: 4;
+    }
   }
 }
 </style>

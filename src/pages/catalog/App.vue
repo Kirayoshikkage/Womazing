@@ -4,29 +4,41 @@
     <TheHero :crumbs="crumbs">
       <template #title> Каталог </template>
     </TheHero>
+    <TheCatalogFilters @applying-filters="applyingFiltersHandler" />
+    <TheCatalogItems :applied-filters="appliedFilters" />
   </main>
   <TheFooter />
 </template>
 
 <script>
-import TheHeader from "../../components/TheHeader.vue";
-import TheHero from "../../components/TheHero.vue";
-import TheFooter from "../../components/TheFooter.vue";
+import TheHeader from "@/components/TheHeader.vue";
+import TheHero from "@/components/TheHero.vue";
+import TheCatalogFilters from "@/components/TheCatalogFilters.vue";
+import TheCatalogItems from "@/components/TheCatalogItems.vue";
+import TheFooter from "@/components/TheFooter.vue";
 
 export default {
   name: "App",
   components: {
     TheHeader,
     TheHero,
+    TheCatalogFilters,
+    TheCatalogItems,
     TheFooter,
   },
   data() {
     return {
+      appliedFilters: {},
       crumbs: [
-        ["Главная", "home.html"],
+        ["Главная", "index.html"],
         ["Каталог", "catalog.html", true],
       ],
     };
+  },
+  methods: {
+    applyingFiltersHandler(filters) {
+      this.appliedFilters = filters;
+    },
   },
 };
 </script>

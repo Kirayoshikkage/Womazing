@@ -1,7 +1,7 @@
 <template>
   <TheHeader />
   <main>
-    <TheHomeHero />
+    <TheIndexHero />
     <TheNewCollection />
     <TheImportantToUs />
     <TheDreamTeam />
@@ -11,7 +11,7 @@
 
 <script>
 import TheHeader from "../../components/TheHeader.vue";
-import TheHomeHero from "../../components/TheHomeHero.vue";
+import TheIndexHero from "../../components/TheIndexHero.vue";
 import TheNewCollection from "../../components/TheNewCollection.vue";
 import TheImportantToUs from "../../components/TheImportantToUs.vue";
 import TheDreamTeam from "../../components/TheDreamTeam.vue";
@@ -21,21 +21,11 @@ export default {
   name: "App",
   components: {
     TheHeader,
-    TheHomeHero,
+    TheIndexHero,
     TheNewCollection,
     TheImportantToUs,
     TheDreamTeam,
     TheFooter,
-  },
-  provide() {
-    return {
-      getCurrentPageName: this.getCurrentPageName,
-    };
-  },
-  methods: {
-    getCurrentPageName() {
-      return "Главная";
-    },
   },
 };
 </script>
@@ -43,23 +33,21 @@ export default {
 <style lang="scss">
 @import "../../assets/styles/common/common";
 
-#app {
-  .home-hero {
-    position: relative;
+.index-hero {
+  position: relative;
 
-    &::before {
-      content: "";
-      position: absolute;
-      right: 0;
-      top: rem(-108);
-      z-index: -1;
-      width: 46%;
-      height: calc(100% + rem(167));
-      background-color: var(--color-ecru);
+  &::before {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: rem(-108);
+    z-index: -1;
+    width: 46%;
+    height: calc(100% + rem(167));
+    background-color: var(--color-ecru);
 
-      @include medium {
-        display: none;
-      }
+    @include medium {
+      display: none;
     }
   }
 }

@@ -31,7 +31,7 @@ export default {
 
 <style lang="scss">
 .hero {
-  padding: rem(64) 0;
+  padding: rem(64) 0 rem(32);
 
   @include medium {
     padding: rem(32) 0;

@@ -9,18 +9,18 @@ module.exports = defineConfig({
     );
   },
   pages: {
-    home: {
-      entry: "./src/pages/home/main.js",
+    index: {
+      entry: "./src/pages/index/main.js",
       template: "public/index.html",
-      filename: "home.html",
-      title: "Home",
-      chunks: ["chunk-vendors", "chunk-common", "home"],
+      filename: "index.html",
+      title: "Womazing",
+      chunks: ["chunk-vendors", "chunk-common", "index"],
     },
     catalog: {
       entry: "./src/pages/catalog/main.js",
       template: "public/index.html",
       filename: "catalog.html",
-      title: "Catalog",
+      title: "Womazing",
       chunks: ["chunk-vendors", "chunk-common", "catalog"],
     },
   },

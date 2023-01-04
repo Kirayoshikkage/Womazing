@@ -1,5 +1,5 @@
 <template>
-  <button class="burger-trigger" type="button">
+  <button class="burger-trigger" type="button" aria-haspopup="true">
     <span class="burger-trigger__item" />
     <span class="burger-trigger__item" />
     <span class="burger-trigger__item" />

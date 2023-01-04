@@ -1,6 +1,6 @@
 <template>
   <article class="card-product">
-    <a class="card-product__link" href="" :tabindex="tabIndex">
+    <a class="card-product__link" href="">
       <img
         class="card-product__img"
         :src="srcImg"
@@ -40,10 +40,6 @@ export default {
         return {};
       },
     },
-    focusLock: {
-      type: Boolean,
-      default: false,
-    },
   },
   computed: {
     title() {
@@ -82,9 +78,6 @@ export default {
       const stubAlt = "Womazing";
 
       return alt || stubAlt;
-    },
-    tabIndex() {
-      return this.focusLock ? -1 : 0;
     },
   },
 };

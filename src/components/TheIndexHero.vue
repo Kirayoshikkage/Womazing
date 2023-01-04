@@ -1,7 +1,7 @@
 <template>
-  <section class="home-hero">
+  <section class="index-hero">
     <div class="container">
-      <div class="home-hero__item">
+      <div class="index-hero__item">
         <swiper
           :modules="modules"
           :slides-per-view="1"
@@ -13,79 +13,67 @@
           }"
         >
           <swiper-slide v-slot="{ isActive }">
-            <div class="home-hero__content" :aria-hidden="!isActive">
+            <div class="index-hero__content" :inert="!isActive">
               <LeadTitle> Новые поступления в этом сезоне </LeadTitle>
-              <div class="home-hero__limiter">
-                <p class="home-hero__desc">
+              <div class="index-hero__limiter">
+                <p class="index-hero__desc">
                   Утонченные сочетания и бархатные оттенки - вот то, что вы
                   искали в этом сезоне. Время исследовать.
                 </p>
-                <BaseLink
-                  class="link_filled"
-                  href="#"
-                  :tabindex="isActive ? 0 : -1"
-                >
+                <BaseLink class="link_filled" href="catalog.html">
                   Каталог товаров
                 </BaseLink>
               </div>
             </div>
           </swiper-slide>
           <swiper-slide v-slot="{ isActive }">
-            <div class="home-hero__content" :aria-hidden="!isActive">
+            <div class="index-hero__content" :inert="!isActive">
               <LeadTitle> Что-то новенькое. Мы заждались тебя. </LeadTitle>
-              <div class="home-hero__limiter">
-                <p class="home-hero__desc">
+              <div class="index-hero__limiter">
+                <p class="index-hero__desc">
                   Надоело искать себя в сером городе? Настало время новых идей,
                   свежих красок и вдохновения с Womazing!
                 </p>
-                <BaseLink
-                  class="link_filled"
-                  href="#"
-                  :tabindex="isActive ? 0 : -1"
-                >
-                  Открыть магазин
+                <BaseLink class="link_filled" href="catalog.html">
+                  Каталог товаров
                 </BaseLink>
               </div>
             </div>
           </swiper-slide>
           <swiper-slide v-slot="{ isActive }">
-            <div class="home-hero__content" :aria-hidden="!isActive">
+            <div class="index-hero__content" :inert="!isActive">
               <LeadTitle> Включай новый сезон с WOMAZING </LeadTitle>
-              <div class="home-hero__limiter">
-                <p class="home-hero__desc">
+              <div class="index-hero__limiter">
+                <p class="index-hero__desc">
                   Мы обновили ассортимент - легендарные коллекции и новинки от
                   отечественных дизайнеров
                 </p>
-                <BaseLink
-                  class="link_filled"
-                  href="#"
-                  :tabindex="isActive ? 0 : -1"
-                >
-                  Открыть магазин
+                <BaseLink class="link_filled" href="catalog.html">
+                  Каталог товаров
                 </BaseLink>
               </div>
             </div>
           </swiper-slide>
         </swiper>
       </div>
-      <div class="home-hero__item home-hero__item_img">
+      <div class="index-hero__item index-hero__item_img">
         <picture>
           <source
             media="(min-width: 128rem)"
             type="image/webp"
             srcset="
-              ../assets/img/home-hero-img@2x.webp,
-              ../assets/img/home-hero-img@3x.webp 2x,
-              ../assets/img/home-hero-img@4x.webp 3x
+              ../assets/img/index-hero-img@2x.webp,
+              ../assets/img/index-hero-img@3x.webp 2x,
+              ../assets/img/index-hero-img@4x.webp 3x
             "
           />
           <source
             media="(max-width: 127.98rem) and (min-width: 62rem)"
             type="image/webp"
             srcset="
-              ../assets/img/home-hero-img@1x.webp,
-              ../assets/img/home-hero-img@2x.webp 2x,
-              ../assets/img/home-hero-img@3x.webp 3x
+              ../assets/img/index-hero-img@1x.webp,
+              ../assets/img/index-hero-img@2x.webp 2x,
+              ../assets/img/index-hero-img@3x.webp 3x
             "
           />
           <source
@@ -94,8 +82,8 @@
             srcset="../assets/img/stub.webp"
           />
           <img
-            class="home-hero__img"
-            src="../assets/img/home-hero-img@1x.webp"
+            class="index-hero__img"
+            src="../assets/img/index-hero-img@1x.webp"
             alt=""
             aria-hidden="true"
             width="410"
@@ -108,7 +96,6 @@
 </template>
 
 <script>
-// Swiper
 import { Pagination, A11y } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
@@ -134,7 +121,7 @@ export default {
 </script>
 
 <style lang="scss">
-.home-hero {
+.index-hero {
   margin: 0 0 rem(95);
 
   .container {
