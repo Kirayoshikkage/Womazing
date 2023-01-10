@@ -4,8 +4,8 @@
     <TheHero :crumbs="crumbs">
       <template #title> Каталог </template>
     </TheHero>
-    <TheCatalogFilters @applying-filters="applyingFiltersHandler" />
-    <TheCatalogItems :applied-filters="appliedFilters" />
+    <TheCatalogFilters @changing-filters="filterChangeHandler" />
+    <TheCatalogItems :filters="filters" />
   </main>
   <TheFooter />
 </template>
@@ -28,7 +28,7 @@ export default {
   },
   data() {
     return {
-      appliedFilters: {},
+      filters: {},
       crumbs: [
         ["Главная", "index.html"],
         ["Каталог", "catalog.html", true],
@@ -36,8 +36,8 @@ export default {
     };
   },
   methods: {
-    applyingFiltersHandler(filters) {
-      this.appliedFilters = filters;
+    filterChangeHandler(filters) {
+      this.filters = filters;
     },
   },
 };

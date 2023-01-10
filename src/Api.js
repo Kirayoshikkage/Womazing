@@ -9,8 +9,12 @@ const functionsFiltration = {
     return paramValue.some((paramColor) => colors.has(paramColor));
   },
   category: ([paramValue], { category }) => paramValue === category,
-  newCollection: (paramValue, { newCollection = false }) =>
-    paramValue === newCollection,
+  newCollection: (paramValue, { yearIssue = NaN }) => {
+    const currentYear = new Date().getFullYear();
+
+    // eslint-disable-next-line eqeqeq
+    return currentYear == yearIssue;
+  },
 };
 const formattingList = ["page", "amount"];
 
@@ -71,6 +75,7 @@ async function getItems(params = {}) {
         XL: ["Белый"],
         XXL: ["Серый", "Чёрный", "Белый"],
       },
+      yearIssue: 2022,
     },
     {
       id: "07c41167-ac05-4850-8d8d-fcd2914dde15",
@@ -92,6 +97,7 @@ async function getItems(params = {}) {
         L: ["Чёрный", "Белый"],
         XL: ["Чёрный", "Белый"],
       },
+      yearIssue: 2022,
     },
     {
       id: "7150e4ba-2b80-4d02-a91c-3a098a67914e",
@@ -112,7 +118,7 @@ async function getItems(params = {}) {
         XS: ["Белый"],
         XL: ["Белый", "Фиолетовый"],
       },
-      newCollection: true,
+      yearIssue: 2023,
     },
     //
     {
@@ -138,6 +144,7 @@ async function getItems(params = {}) {
         XL: ["Белый"],
         XXL: ["Серый", "Чёрный", "Белый"],
       },
+      yearIssue: 2020,
     },
     {
       id: "07c41167-ac05-4850-8d8d-fcd2914dde152",
@@ -159,6 +166,7 @@ async function getItems(params = {}) {
         L: ["Чёрный", "Белый"],
         XL: ["Чёрный", "Белый"],
       },
+      yearIssue: 2021,
     },
     {
       id: "7150e4ba-2b80-4d02-a91c-3a098a67914e3",
@@ -179,6 +187,7 @@ async function getItems(params = {}) {
         XS: ["Белый"],
         XL: ["Белый", "Фиолетовый"],
       },
+      yearIssue: 2022,
     },
     //
     {
@@ -204,6 +213,7 @@ async function getItems(params = {}) {
         XL: ["Белый"],
         XXL: ["Серый", "Чёрный", "Белый"],
       },
+      yearIssue: 2023,
     },
     {
       id: "07c41167-ac05-4850-8d8d-fcd2914dde1525",
@@ -225,6 +235,7 @@ async function getItems(params = {}) {
         L: ["Чёрный", "Белый"],
         XL: ["Чёрный", "Белый"],
       },
+      yearIssue: 2020,
     },
     {
       id: "7150e4ba-2b80-4d02-a91c-3a098a67914e36",
@@ -245,6 +256,7 @@ async function getItems(params = {}) {
         XS: ["Белый"],
         XL: ["Белый", "Фиолетовый"],
       },
+      yearIssue: 2022,
     },
     //
     {
@@ -270,6 +282,7 @@ async function getItems(params = {}) {
         XL: ["Белый"],
         XXL: ["Серый", "Чёрный", "Белый"],
       },
+      yearIssue: 2021,
     },
     {
       id: "07c41167-ac05-4850-8d8d-fcd2914dde15251",
@@ -291,6 +304,7 @@ async function getItems(params = {}) {
         L: ["Чёрный", "Белый"],
         XL: ["Чёрный", "Белый"],
       },
+      yearIssue: 2023,
     },
     {
       id: "7150e4ba-2b80-4d02-a91c-3a098a67914e361",
@@ -311,6 +325,7 @@ async function getItems(params = {}) {
         XS: ["Белый"],
         XL: ["Белый", "Фиолетовый"],
       },
+      yearIssue: 2020,
     },
     //
     {
@@ -336,6 +351,7 @@ async function getItems(params = {}) {
         XL: ["Белый"],
         XXL: ["Серый", "Чёрный", "Белый"],
       },
+      yearIssue: 2022,
     },
     {
       id: "07c41167-ac05-4850-8d8d-fcd2914dde152511",
@@ -357,6 +373,7 @@ async function getItems(params = {}) {
         L: ["Чёрный", "Белый"],
         XL: ["Чёрный", "Белый"],
       },
+      yearIssue: 2023,
     },
     {
       id: "7150e4ba-2b80-4d02-a91c-3a098a67914e3611",
@@ -377,6 +394,7 @@ async function getItems(params = {}) {
         XS: ["Белый"],
         XL: ["Белый", "Фиолетовый"],
       },
+      yearIssue: 2023,
     },
     //
     {
@@ -402,6 +420,7 @@ async function getItems(params = {}) {
         XL: ["Белый"],
         XXL: ["Серый", "Чёрный", "Белый"],
       },
+      yearIssue: 2021,
     },
     {
       id: "07c41167-ac05-4850-8d8d-fcd2914dde15",
@@ -423,6 +442,7 @@ async function getItems(params = {}) {
         L: ["Чёрный", "Белый"],
         XL: ["Чёрный", "Белый"],
       },
+      yearIssue: 2020,
     },
     {
       id: "7150e4ba-2b80-4d02-a91c-3a098a67914e",
@@ -443,6 +463,7 @@ async function getItems(params = {}) {
         XS: ["Белый"],
         XL: ["Белый", "Фиолетовый"],
       },
+      yearIssue: 2022,
     },
     //
     {
@@ -468,6 +489,7 @@ async function getItems(params = {}) {
         XL: ["Белый"],
         XXL: ["Серый", "Чёрный", "Белый"],
       },
+      yearIssue: 2023,
     },
     {
       id: "fb62624c-ce10-44c9-9ce5-7d259b20741c14",
@@ -492,6 +514,7 @@ async function getItems(params = {}) {
         XL: ["Белый"],
         XXL: ["Серый", "Чёрный", "Белый"],
       },
+      yearIssue: 2020,
     },
     {
       id: "07c41167-ac05-4850-8d8d-fcd2914dde1525",
@@ -513,6 +536,7 @@ async function getItems(params = {}) {
         L: ["Чёрный", "Белый"],
         XL: ["Чёрный", "Белый"],
       },
+      yearIssue: 2022,
     },
     //
     {
@@ -538,7 +562,7 @@ async function getItems(params = {}) {
         XL: ["Белый"],
         XXL: ["Серый", "Чёрный", "Белый"],
       },
-      newCollection: true,
+      yearIssue: 2023,
     },
     {
       id: "07c41167-ac05-4850-8d8d-fcd2914dde15251",
@@ -560,7 +584,7 @@ async function getItems(params = {}) {
         L: ["Чёрный", "Белый"],
         XL: ["Чёрный", "Белый"],
       },
-      newCollection: true,
+      yearIssue: 2023,
     },
     {
       id: "7150e4ba-2b80-4d02-a91c-3a098a67914e361",
@@ -581,7 +605,7 @@ async function getItems(params = {}) {
         XS: ["Белый"],
         XL: ["Белый", "Фиолетовый"],
       },
-      newCollection: true,
+      yearIssue: 2022,
     },
     //
     {
@@ -607,7 +631,7 @@ async function getItems(params = {}) {
         XL: ["Белый"],
         XXL: ["Серый", "Чёрный", "Белый"],
       },
-      newCollection: true,
+      yearIssue: 2020,
     },
     {
       id: "07c41167-ac05-4850-8d8d-fcd2914dde152511",
@@ -629,7 +653,7 @@ async function getItems(params = {}) {
         L: ["Чёрный", "Белый"],
         XL: ["Чёрный", "Белый"],
       },
-      newCollection: true,
+      yearIssue: 2021,
     },
     {
       id: "7150e4ba-2b80-4d02-a91c-3a098a67914e3611",
@@ -650,7 +674,7 @@ async function getItems(params = {}) {
         XS: ["Белый"],
         XL: ["Белый", "Фиолетовый"],
       },
-      newCollection: true,
+      yearIssue: 2022,
     },
   ];
   const filteredData = filtersData(data, params);
@@ -685,6 +709,7 @@ async function getValuesForFilters() {
   const data = {
     colors: ["Чёрный", "Белый", "Серый", "Бежевый", "Фиолетовый"],
     category: ["Футболки", "Купальники", "Свитшоты"],
+    collection: [2020, 2021, 2022, 2023],
   };
 
   // Delay

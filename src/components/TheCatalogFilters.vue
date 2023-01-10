@@ -24,14 +24,6 @@
             :items="valuesForFilters.colors"
             :multiple="true"
           />
-          <BaseBtn
-            class="button_filled"
-            @pointerup="applyingFiltersHandler"
-            @keydown.enter="applyingFiltersHandler"
-            @keydown.space="applyingFiltersHandler"
-          >
-            Применить
-          </BaseBtn>
         </div>
         <SelectedItems
           :items="listFiltersValue"
@@ -48,11 +40,16 @@
 
 <script>
 import { getValuesForFilters } from "../Api.js";
+import {
+  pushesQueryParameters,
+  getsQueryParams,
+  deletesQueryParams,
+} from "@/assets/scripts/helpers/queryParameters";
+import isEqual from "@/assets/scripts/helpers/isEqual";
 
 import LoadStatusHandler from "./LoadStatusHandler.vue";
 import BaseTitle from "./BaseTitle.vue";
 import BaseSelect from "./BaseSelect.vue";
-import BaseBtn from "./BaseBtn.vue";
 import SelectedItems from "./SelectedItems.vue";
 
 export default {
@@ -60,11 +57,10 @@ export default {
     LoadStatusHandler,
     BaseTitle,
     BaseSelect,
-    BaseBtn,
     SelectedItems,
   },
   emits: {
-    "applying-filters": null,
+    "changing-filters": null,
   },
   data() {
     return {
@@ -74,6 +70,7 @@ export default {
       },
       valuesForFilters: {},
       contentIsLock: false,
+      nameQueryParam: "filters",
     };
   },
   computed: {
@@ -90,10 +87,94 @@ export default {
       return Object.values(this.filters).flat();
     },
   },
+  watch: {
+    filters: {
+      handler() {
+        this.filterChangeHandler();
+
+        this.savesFiltersInQueryParams();
+      },
+      deep: true,
+    },
+  },
   mounted() {
+    this.setsFiltersByQueryParams();
+
     this.setsValuesForFilters();
+
+    window.addEventListener("popstate", this.setsFiltersByQueryParams);
+  },
+  beforeUnmount() {
+    window.removeEventListener("popstate", this.setsFiltersByQueryParams);
   },
   methods: {
+    filterChangeHandler() {
+      this.$emit("changing-filters", this.validatedFilters);
+    },
+    savesFiltersInQueryParams() {
+      let validatedFiltersFromQueryParams =
+        this.validatesFiltersFromQueryParams(
+          getsQueryParams(this.nameQueryParam) ?? {}
+        );
+
+      if (isEqual(validatedFiltersFromQueryParams, this.validatedFilters)) {
+        return;
+      }
+
+      if (Object.keys(this.validatedFilters).length) {
+        pushesQueryParameters(this.nameQueryParam, this.validatedFilters);
+
+        return;
+      }
+
+      deletesQueryParams(this.nameQueryParam);
+    },
+    validatesFiltersFromQueryParams(filtersFromQueryParams) {
+      return Object.fromEntries(
+        Object.entries(filtersFromQueryParams).filter(([key, value]) => {
+          const keyIsNotThirdParty = Object.prototype.hasOwnProperty.call(
+            this.filters,
+            key
+          );
+          const valueIsNotThirdParty =
+            Object.prototype.toString.call(this.filters[key]) ===
+            Object.prototype.toString.call(value);
+
+          return keyIsNotThirdParty && valueIsNotThirdParty;
+        })
+      );
+    },
+    setsFiltersByQueryParams() {
+      try {
+        let validatedFiltersFromQueryParams =
+          this.validatesFiltersFromQueryParams(
+            getsQueryParams(this.nameQueryParam) ?? {}
+          );
+
+        if (!Object.keys(validatedFiltersFromQueryParams).length) {
+          deletesQueryParams(this.nameQueryParam);
+
+          return;
+        }
+
+        for (let key in this.filters) {
+          if (
+            Object.prototype.hasOwnProperty.call(
+              validatedFiltersFromQueryParams,
+              key
+            )
+          ) {
+            this.filters[key] = validatedFiltersFromQueryParams[key];
+
+            continue;
+          }
+
+          this.$refs[key].resetValue();
+        }
+      } catch (err) {
+        deletesQueryParams(this.nameQueryParam);
+      }
+    },
     setsValuesForFilters() {
       this.$refs.loadStatusHandler.setsPendingStatus();
 
@@ -112,9 +193,6 @@ export default {
         .catch(() => {
           this.$refs.loadStatusHandler.setsRejectedStatus();
         });
-    },
-    applyingFiltersHandler() {
-      this.$emit("applying-filters", this.validatedFilters);
     },
     attemptHandler() {
       this.setsValuesForFilters();

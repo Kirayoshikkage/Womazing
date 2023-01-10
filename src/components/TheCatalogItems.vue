@@ -90,7 +90,7 @@ export default {
     BaseSubtitle,
   },
   props: {
-    appliedFilters: {
+    filters: {
       type: Object,
       default() {
         return {};
@@ -115,7 +115,7 @@ export default {
   computed: {
     requestParams() {
       return {
-        ...this.appliedFilters,
+        ...this.filters,
         page: this.page,
         amount: this.amount,
       };
@@ -183,7 +183,7 @@ export default {
     contentIsLock() {
       this.togglesStateSwiper();
     },
-    appliedFilters() {
+    filters() {
       if (this.page == 1) {
         this.addsItemsOnPage();
       }
@@ -217,6 +217,8 @@ export default {
           this.$refs.loadStatusHandler.setsFulfilledStatus();
         })
         .catch(() => {
+          if (!isEqual(params, this.requestParams)) return;
+
           this.$refs.loadStatusHandler.setsRejectedStatus();
         });
     },
@@ -341,6 +343,17 @@ export default {
       right: -1rem;
       bottom: -1rem;
       left: -1rem;
+    }
+
+    @media (max-width: rem(575.98)),
+      (orientation: landscape) and (max-width: rem(991.98)) {
+      align-items: flex-start;
+      padding-top: 50vh;
+
+      .preloader,
+      .try-again {
+        transform: translateY(-50%);
+      }
     }
   }
 

@@ -3,7 +3,7 @@
     <div class="container">
       <div class="footer__item">
         <BaseLogo />
-        <CategoryList :category-list="categoryList" />
+        <FiltersList :filters-list="filtersList" />
       </div>
       <div class="footer__item">
         <ul class="footer__communications">
@@ -67,7 +67,7 @@
 
 <script>
 import BaseLogo from "./BaseLogo.vue";
-import CategoryList from "./CategoryList.vue";
+import FiltersList from "./FiltersList.vue";
 import MeanOfCommunication from "./MeanOfCommunication.vue";
 import SocialNetwork from "./SocialNetwork.vue";
 import FacebookIcon from "./icons/FacebookIcon.vue";
@@ -79,7 +79,7 @@ import EmailIcon from "./icons/EmailIcon.vue";
 export default {
   components: {
     BaseLogo,
-    CategoryList,
+    FiltersList,
     MeanOfCommunication,
     SocialNetwork,
     FacebookIcon,
@@ -90,11 +90,19 @@ export default {
   },
   data() {
     return {
-      categoryList: [
-        ["Пальто", "#"],
-        ["Свитшоты", "#"],
-        ["Кардиганы", "#"],
-        ["Толстовки", "#"],
+      filtersList: [
+        [
+          "Футболки",
+          "catalog.html?filters=%7B%22category%22%3A%5B%22%D0%A4%D1%83%D1%82%D0%B1%D0%BE%D0%BB%D0%BA%D0%B8%22%5D%7D",
+        ],
+        [
+          "Купальники",
+          "catalog.html?filters=%7B%22category%22%3A%5B%22%D0%9A%D1%83%D0%BF%D0%B0%D0%BB%D1%8C%D0%BD%D0%B8%D0%BA%D0%B8%22%5D%7D",
+        ],
+        [
+          "Свитшоты",
+          "catalog.html?filters=%7B%22category%22%3A%5B%22%D0%A1%D0%B2%D0%B8%D1%82%D1%88%D0%BE%D1%82%D1%8B%22%5D%7D",
+        ],
       ],
     };
   },
@@ -141,9 +149,9 @@ export default {
     }
   }
 
-  .category-list {
+  .filters-list {
     display: grid;
-    grid-template-columns: repeat(4, auto);
+    grid-template-columns: repeat(3, auto);
     gap: 1rem rem(45);
 
     @include x-small {

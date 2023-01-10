@@ -1,12 +1,12 @@
 <template>
-  <ul class="category-list">
+  <ul class="filters-list">
     <li
-      v-for="[category, href] of categoryList"
-      :key="category"
-      class="category-list__item"
+      v-for="[filter, href] of filtersList"
+      :key="filter"
+      class="filters-list__item"
     >
-      <a class="category-list__link" :href="href">
-        {{ category }}
+      <a class="filters-list__link" :href="href">
+        {{ filter }}
       </a>
     </li>
   </ul>
@@ -15,7 +15,7 @@
 <script>
 export default {
   props: {
-    categoryList: {
+    filtersList: {
       type: Array,
       default() {
         return [];
@@ -28,7 +28,7 @@ export default {
 <style lang="scss">
 @import "../assets/styles/mixins/text-animation";
 
-.category-list {
+.filters-list {
   &__link {
     @include text-animation;
 
