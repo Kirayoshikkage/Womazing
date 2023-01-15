@@ -23,6 +23,13 @@ module.exports = defineConfig({
       title: "Womazing",
       chunks: ["chunk-vendors", "chunk-common", "catalog"],
     },
+    "about-brand": {
+      entry: "./src/pages/about-brand/main.js",
+      template: "public/index.html",
+      filename: "about-brand.html",
+      title: "Womazing",
+      chunks: ["chunk-vendors", "chunk-common", "about-brand"],
+    },
   },
 });
 

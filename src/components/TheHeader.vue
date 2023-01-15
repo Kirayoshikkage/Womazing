@@ -63,7 +63,7 @@ export default {
       listNavigation: [
         ["Главная", "index.html"],
         ["Каталог", "catalog.html"],
-        ["О бренде", "#"],
+        ["О бренде", "about-brand.html"],
         ["Контакты", "#"],
       ],
     };

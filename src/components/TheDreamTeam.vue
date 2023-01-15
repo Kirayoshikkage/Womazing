@@ -141,7 +141,9 @@
             Womazing ищет эти мелочи и создает прекрасные вещи, которые выгодно
             подчеркивают достоинства каждой девушки.
           </p>
-          <a href="#" class="dream-team__link"> Подробнее о бренде </a>
+          <a href="about-brand.html" class="dream-team__link">
+            Подробнее о бренде
+          </a>
         </div>
       </div>
     </div>
