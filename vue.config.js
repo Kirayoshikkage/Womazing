@@ -31,6 +31,7 @@ module.exports = defineConfig({
       chunks: ["chunk-vendors", "chunk-common", "about-brand"],
     },
   },
+  publicPath: process.env.NODE_ENV === "production" ? "/Womazing/dist/" : "/",
 });
 
 function addStyleResource(rule) {
