@@ -1,4 +1,4 @@
-# Womazing
+# Womazing http://womazing.matvie1x.beget.tech/
 
 ## Установка проекта
 ```
